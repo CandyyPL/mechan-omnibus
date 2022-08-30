@@ -32,13 +32,6 @@ import excImg from '@/assets/danger.png'
 import axios from 'axios'
 
 const Home: FC = () => {
-  const handleScrollToJoin = () => {
-    window.scrollTo({
-      top: 850,
-      behavior: 'smooth',
-    })
-  }
-
   return (
     <Wrapper>
       <TopbarMenu />

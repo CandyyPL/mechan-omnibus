@@ -258,41 +258,10 @@ export const JoinNowButton = styled(Button)`
   }
 `
 
-export const ClassChoose = styled.div`
-  width: 400px;
-  height: 80px;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  padding: 10px;
-
-  font-size: 24px;
-  font-weight: bold;
-`
-
 interface ClassOptionProps {
   active: boolean
   name: string
 }
-
-export const ClassOption = styled.div<ClassOptionProps>`
-  width: 35px;
-  height: 40px;
-
-  border-radius: 5px;
-  margin-left: 20px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-
-  border: ${({ active }) => (active ? '3px solid #00a7e1' : '3px solid #222')};
-  color: ${({ active }) => (active ? '#00a7e1' : '#111')};
-`
 
 export const JoinLeft = styled.div`
   width: 50%;

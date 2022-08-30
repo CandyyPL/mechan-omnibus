@@ -32,86 +32,6 @@ import excImg from '@/assets/danger.png'
 import axios from 'axios'
 
 const Home: FC = () => {
-  const classesObj: { [key: string]: boolean } = {
-    k1: false,
-    k2: false,
-    k3: false,
-    k4: false,
-  }
-
-  const [classes, setClasses] = useState(classesObj)
-
-  const handleClassChange = (e: React.MouseEvent<HTMLDivElement>) => {
-    const clicked = e.currentTarget.getAttribute('name')!
-
-    let temp: { [key: string]: boolean } = {}
-    Object.assign(temp, { ...classes })
-
-    Object.keys(classesObj).forEach(k => {
-      if (clicked == k && classes[k] == false) {
-        Object.assign(temp, { ...temp, [k]: !temp[k] })
-      } else if (clicked != k && classes[k] == true) {
-        Object.assign(temp, { ...temp, [k]: !temp[k] })
-      }
-    })
-
-    setClasses(temp)
-  }
-
-  const nameRef = useRef<HTMLInputElement>(null)
-  const emailRef = useRef<HTMLInputElement>(null)
-  const profileRef = useRef<HTMLInputElement>(null)
-
-  const [nameVal, setNameVal] = useState('')
-  const [emailVal, setEmailVal] = useState('')
-  const [profileVal, setProfileVal] = useState('')
-
-  const handleSignup = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const name = nameRef.current?.value
-    const email = emailRef.current?.value
-    const profile = profileRef.current?.value
-
-    const classNum = Object.keys(classes).find(k => classes[k] == true)
-
-    setNameVal('')
-    setEmailVal('')
-    setProfileVal('')
-
-    let temp: { [key: string]: boolean } = {}
-
-    Object.assign(temp, { ...classes })
-
-    Object.keys(classesObj).forEach(k => {
-      Object.assign(temp, { ...temp, [k]: false })
-    })
-
-    setClasses(temp)
-
-    const sendData = {
-      name,
-      email,
-      class: classNum,
-      profile,
-    }
-
-    const res = await axios.post('http://localhost:4000/signnew', sendData)
-    console.log(res)
-  }
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameVal(e.target?.value)
-  }
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailVal(e.target?.value)
-  }
-
-  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfileVal(e.target?.value)
-  }
-
   const handleScrollToJoin = () => {
     window.scrollTo({
       top: 850,
@@ -166,21 +86,7 @@ const Home: FC = () => {
               onChange={handleEmailChange}
               required
             />
-            <ClassChoose>
-              <span>Klasa:</span>
-              <ClassOption active={classes.k1} name='k1' onClick={handleClassChange}>
-                1
-              </ClassOption>
-              <ClassOption active={classes.k2} name='k2' onClick={handleClassChange}>
-                2
-              </ClassOption>
-              <ClassOption active={classes.k3} name='k3' onClick={handleClassChange}>
-                3
-              </ClassOption>
-              <ClassOption active={classes.k4} name='k4' onClick={handleClassChange}>
-                4
-              </ClassOption>
-            </ClassChoose>
+
             <input
               type='text'
               name='profile'

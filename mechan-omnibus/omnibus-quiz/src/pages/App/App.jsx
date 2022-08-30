@@ -1,15 +1,13 @@
 import React from 'react'
 import { Wrapper } from 'pages/App/App.styles'
-import Topbar from 'components/Topbar/Topbar'
-import TopPart from 'components/TopPart/TopPart'
+import Home from 'pages/Home/Home'
 
 const App = () => {
-	return (
-		<Wrapper>
-			<Topbar />
-			<TopPart />
-		</Wrapper>
-	)
+  return (
+    <Wrapper>
+      <Home />
+    </Wrapper>
+  )
 }
 
 export default App

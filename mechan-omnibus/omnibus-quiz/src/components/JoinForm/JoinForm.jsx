@@ -1,0 +1,149 @@
+import React, { useRef, useState } from 'react'
+import {
+  Button,
+  ClassChoose,
+  ClassOption,
+  FormField,
+  SignUpWarning,
+  Wrapper,
+} from 'components/JoinForm/JoinForm.styles'
+import axios from 'axios'
+
+const JoinForm = () => {
+  const classesObj = {
+    k1: false,
+    k2: false,
+    k3: false,
+    k4: false,
+  }
+
+  const [classes, setClasses] = useState(classesObj)
+  const [signUpWarning, setSignUpWarning] = useState('')
+
+  const handleClassChange = (e) => {
+    const clicked = e.currentTarget.getAttribute('name')
+
+    let temp = {}
+    Object.assign(temp, { ...classes })
+
+    Object.keys(classesObj).forEach((k) => {
+      if (clicked === k && classes[k] === false) {
+        Object.assign(temp, { ...temp, [k]: !temp[k] })
+      } else if (clicked !== k && classes[k] === true) {
+        Object.assign(temp, { ...temp, [k]: !temp[k] })
+      }
+    })
+
+    setClasses(temp)
+  }
+
+  const nameRef = useRef(null)
+  const emailRef = useRef(null)
+  const profileRef = useRef(null)
+
+  const [nameVal, setNameVal] = useState('')
+  const [emailVal, setEmailVal] = useState('')
+  const [profileVal, setProfileVal] = useState('')
+
+  const handleSignup = async (e) => {
+    e.preventDefault()
+
+    const name = nameRef.current?.value
+    const email = emailRef.current?.value
+    const profile = profileRef.current?.value
+
+    if (name === '' || email === '' || profile === '') {
+      setSignUpWarning('Wypełnij wszystkie pola!')
+      return
+    }
+
+    const classNum = Object.keys(classes).find((k) => classes[k] === true)
+    if (classNum === undefined) {
+      setSignUpWarning('Wybierz klasę!')
+      return
+    }
+
+    setNameVal('')
+    setEmailVal('')
+    setProfileVal('')
+    setSignUpWarning('')
+
+    let temp = {}
+
+    Object.assign(temp, { ...classes })
+
+    Object.keys(classesObj).forEach((k) => {
+      Object.assign(temp, { ...temp, [k]: false })
+    })
+
+    setClasses(temp)
+
+    const sendData = {
+      name,
+      email,
+      class: classNum,
+      profile,
+    }
+
+    const res = await axios.post('http://localhost:4000/signnew', sendData)
+    console.log(res)
+  }
+
+  const handleNameChange = (e) => {
+    setNameVal(e.target.value)
+  }
+
+  const handleEmailChange = (e) => {
+    setEmailVal(e.target.value)
+  }
+
+  const handleProfileChange = (e) => {
+    setProfileVal(e.target.value)
+  }
+
+  return (
+    <Wrapper onSubmit={handleSignup}>
+      <p>Zapisz się</p>
+      <FormField
+        type='text'
+        value={nameVal}
+        onChange={handleNameChange}
+        ref={nameRef}
+        placeholder='Imię i nazwisko'
+      />
+      <FormField
+        type='text'
+        value={emailVal}
+        onChange={handleEmailChange}
+        ref={emailRef}
+        placeholder='Adres e-mail'
+      />
+      <ClassChoose>
+        <span>Klasa:</span>
+        <ClassOption active={classes.k1} name='k1' onClick={handleClassChange}>
+          1
+        </ClassOption>
+        <ClassOption active={classes.k2} name='k2' onClick={handleClassChange}>
+          2
+        </ClassOption>
+        <ClassOption active={classes.k3} name='k3' onClick={handleClassChange}>
+          3
+        </ClassOption>
+        <ClassOption active={classes.k4} name='k4' onClick={handleClassChange}>
+          4
+        </ClassOption>
+      </ClassChoose>
+      <FormField
+        type='text'
+        value={profileVal}
+        onChange={handleProfileChange}
+        ref={profileRef}
+        placeholder='Profil nauki'
+      />
+      <Button type='submit'>WYŚLIJ ZGŁOSZENIE</Button>
+      {signUpWarning === '' ? null : <SignUpWarning>{signUpWarning}</SignUpWarning>}
+    </Wrapper>
+  )
+}
+
+export default JoinForm

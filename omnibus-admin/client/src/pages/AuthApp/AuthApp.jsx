@@ -1,8 +1,7 @@
-import Home from '@/pages/Home/Home'
-import { FC } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Home from 'pages/Home/Home'
 
-const AuthApp: FC = () => {
+const AuthApp = () => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />

@@ -40,7 +40,7 @@ export const FormWrapper = styled.form`
     font-size: 22px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
-    color: #888;
+    color: #222;
     text-align: center;
 
     &::placeholder {

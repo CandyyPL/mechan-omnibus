@@ -1,27 +1,27 @@
-import { auth } from '@/auth/firebase'
-import { FormWrapper, Title, Wrapper } from '@/pages/UnAuthApp/UnAuthApp.styles'
+import { auth } from 'auth/firebase'
+import { FormWrapper, Title, Wrapper } from 'pages/UnAuthApp/UnAuthApp.styles'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { FC, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-const UnAuthApp: FC = () => {
+const UnAuthApp = () => {
   const [error, setError] = useState('')
 
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
 
-  const handleSignIn = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSignIn = (e) => {
     e.preventDefault()
 
-    const email = emailRef.current?.value
-    const password = passwordRef.current?.value
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
 
-    if (email == undefined || password == undefined) {
+    if (email === undefined || password === undefined) {
       setError('Invalid credentials')
       return
     }
 
     try {
-      signInWithEmailAndPassword(auth, email!, password!)
+      signInWithEmailAndPassword(auth, email, password)
     } catch (err) {
       console.log(err)
       setError('Invalid credentials or Internal server error')

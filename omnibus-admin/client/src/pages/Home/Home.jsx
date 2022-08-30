@@ -1,10 +1,10 @@
 import React from 'react'
-import { Wrapper } from 'pages/App/App.styles'
+import { Wrapper } from 'pages/Home/Home.styles'
 import Topbar from 'components/Topbar/Topbar'
 import ParticipantsList from 'components/ParticipantsList/ParticipantsList'
 import ContentProvider from 'providers/ContentProvider'
 
-const App = () => {
+const Home = () => {
   return (
     <Wrapper>
       <Topbar />
@@ -15,4 +15,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Home

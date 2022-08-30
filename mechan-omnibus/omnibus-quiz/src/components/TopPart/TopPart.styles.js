@@ -127,7 +127,7 @@ export const RightSide = styled.div`
 
 export const Board = styled.div`
   width: 60%;
-  height: 75%;
+  height: 65%;
 
   background-color: #eee;
   position: relative;

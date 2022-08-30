@@ -97,11 +97,11 @@ export const Button = styled.button`
   }
 `
 
-export const SignUpWarning = styled.div`
-  width: 350px;
-  height: 60px;
+export const SignUpInfo = styled.div`
+  width: 500px;
+  height: 75px;
 
-  background-color: #df2935;
+  background-color: ${({ type }) => (type === 'success' ? '#09bc8a' : '#df2935')};
 
   border: none;
   border-radius: 10px;
@@ -111,8 +111,10 @@ export const SignUpWarning = styled.div`
   justify-content: center;
   align-items: center;
 
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  color: #eee;
   letter-spacing: 2px;
+  text-align: center;
+
+  color: ${({ type }) => (type === 'success' ? '#111' : '#eee')};
 `

@@ -4,7 +4,7 @@ import {
   ClassChoose,
   ClassOption,
   FormField,
-  SignUpWarning,
+  SignUpInfo,
   Wrapper,
 } from 'components/JoinForm/JoinForm.styles'
 import axios from 'axios'
@@ -19,6 +19,7 @@ const JoinForm = () => {
 
   const [classes, setClasses] = useState(classesObj)
   const [signUpWarning, setSignUpWarning] = useState('')
+  const [signUpSuccess, setSignUpSuccess] = useState('')
 
   const handleClassChange = (e) => {
     const clicked = e.currentTarget.getAttribute('name')
@@ -63,11 +64,6 @@ const JoinForm = () => {
       return
     }
 
-    setNameVal('')
-    setEmailVal('')
-    setProfileVal('')
-    setSignUpWarning('')
-
     let temp = {}
 
     Object.assign(temp, { ...classes })
@@ -85,8 +81,17 @@ const JoinForm = () => {
       profile,
     }
 
-    const res = await axios.post('http://localhost:4000/signnew', sendData)
-    console.log(res)
+    try {
+      await axios.post('http://localhost:5000/signnew', sendData)
+      setNameVal('')
+      setEmailVal('')
+      setProfileVal('')
+      setSignUpWarning('')
+      setSignUpSuccess('Zgłoszenie wysłane!')
+    } catch (err) {
+      console.log(err)
+      setSignUpWarning('Wystąpił błąd. Sprubój ponownie później.')
+    }
   }
 
   const handleNameChange = (e) => {
@@ -141,7 +146,12 @@ const JoinForm = () => {
         placeholder='Profil nauki'
       />
       <Button type='submit'>WYŚLIJ ZGŁOSZENIE</Button>
-      {signUpWarning === '' ? null : <SignUpWarning>{signUpWarning}</SignUpWarning>}
+      {signUpWarning !== '' && signUpSuccess === '' ? (
+        <SignUpInfo type='warning'>{signUpWarning}</SignUpInfo>
+      ) : null}
+      {signUpWarning === '' && signUpSuccess !== '' ? (
+        <SignUpInfo type='success'>{signUpSuccess}</SignUpInfo>
+      ) : null}
     </Wrapper>
   )
 }

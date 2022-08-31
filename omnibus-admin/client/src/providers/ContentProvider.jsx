@@ -16,7 +16,7 @@ const ContentProvider = ({ children }) => {
 
   const reloadContent = async () => {
     try {
-      const res = await axios.get('http://localhost:4000/getall')
+      const res = await axios.get('http://localhost:5000/getall')
       console.log(res)
       setContent(res.data.users)
       setLoading(false)

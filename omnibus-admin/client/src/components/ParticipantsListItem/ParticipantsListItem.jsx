@@ -9,7 +9,7 @@ const ParticipantsListItem = ({ item }) => {
 
   const handleDeleteUser = async () => {
     try {
-      await axios.post('http://localhost:4000/deleteone', { delId: item.id })
+      await axios.post('http://localhost:5000/deleteone', { delId: item.id })
       reloadContent()
     } catch (err) {
       console.log(err)

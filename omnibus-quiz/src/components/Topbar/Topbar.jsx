@@ -3,9 +3,15 @@ import { Logo, SideDiv, Wrapper } from 'components/Topbar/Topbar.styles'
 import busImg from 'assets/bus-small.png'
 import { Link } from 'react-router-dom'
 import { AuthContext } from 'providers/AuthProvider'
+import { signOut } from 'firebase/auth'
+import { auth } from 'auth/firebase'
 
 const Topbar = () => {
   const { currentUser } = useContext(AuthContext)
+
+  const handleSignOut = () => {
+    signOut(auth)
+  }
 
   return (
     <Wrapper>
@@ -17,13 +23,22 @@ const Topbar = () => {
       </Logo>
       <SideDiv>
         {currentUser != null && currentUser.uid ? (
-          <button>
-            <Link to='/dashboard'>PROFIL</Link>
+          <button onClick={handleSignOut}>
+            {/* <Link to='/dashboard'>PROFIL</Link> */}
+            WYLOGUJ
           </button>
         ) : (
-          <button>
-            <Link to='/profile'>ZALOGUJ SIĘ</Link>
-          </button>
+          <>
+            {window.location.pathname == '/login' ? (
+              <button>
+                <Link to='/'>STRONA GŁÓWNA</Link>
+              </button>
+            ) : (
+              <button>
+                <Link to='/login'>ZALOGUJ SIĘ</Link>
+              </button>
+            )}
+          </>
         )}
       </SideDiv>
     </Wrapper>

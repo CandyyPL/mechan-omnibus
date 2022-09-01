@@ -4,7 +4,8 @@ import mongoose from 'mongoose'
 import signNew from './routes/signNew.js'
 import getAll from './routes/getAll.js'
 import deleteOne from './routes/deleteOne.js'
-import chState from './routes/chState.js'
+import chgState from './routes/chgState.js'
+import chkState from './routes/chkState.js'
 
 const app = express()
 
@@ -17,7 +18,8 @@ mongoose.connect('mongodb+srv://admin:dbPassword@mycluster.t4ym4.mongodb.net/omn
 
 app.post('/signnew', signNew)
 app.post('/deleteone', deleteOne)
-app.post('/chstate', chState)
+app.post('/chgstate', chgState)
+app.post('/chkstate', chkState)
 
 app.get('/getall', getAll)
 

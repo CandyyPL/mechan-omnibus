@@ -13,7 +13,7 @@ const ParticipantsListItem = ({ item }) => {
 
   const handleChangeUserState = async (state) => {
     try {
-      await axios.post('http://localhost:5000/chstate', {
+      await axios.post('http://localhost:5000/chgstate', {
         userId: item.id,
         email: item.email,
         newState: state,

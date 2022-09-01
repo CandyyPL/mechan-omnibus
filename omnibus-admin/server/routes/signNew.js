@@ -1,4 +1,4 @@
-import registration from '../db/models/registration.js'
+import registration from '../db/models/Registration.js'
 import { v4 } from 'uuid'
 
 export default async (req, res) => {

@@ -35,7 +35,7 @@ const Login = () => {
 
     if (approvalState === null || approvalState === 'blocked') {
       setError(
-        'Przed logowaniem musisz się zapisać na stronie głównej. Jeśli sytuacja się powtarza, skontaktuj się z administratorem serwisu.'
+        'Nie możesz się teraz zalogować. Pamiętaj, że przed pierwszym logowaniem musisz się zapisać na stronie głównej. Jeśli sytuacja się powtarza, skontaktuj się z administratorem serwisu.'
       )
       return
     }

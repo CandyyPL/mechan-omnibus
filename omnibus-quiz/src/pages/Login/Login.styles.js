@@ -88,7 +88,7 @@ export const FormWrapper = styled.form`
 `
 
 export const LoginInfo = styled.div`
-  width: 400px;
+  width: 500px;
   height: 125px;
 
   background-color: ${({ type }) => (type === 'success' ? '#09bc8a' : '#df2935')};

@@ -17,9 +17,9 @@ const Sidebar = ({ changeView }) => {
       </SideBarLogo>
       <SideBarMenu>
         <li onClick={() => changeView(views.DASHBOARD)}>Dashboard</li>
-        <li onClick={() => changeView(views.LEADERBOARD)}>Leaderboard</li>
-        <li onClick={() => changeView(views.SHOP)}>Shop</li>
-        <li onClick={() => changeView(views.OPTIONS)}>Options</li>
+        <li onClick={() => changeView(views.LEADERBOARD)}>Ranking</li>
+        <li onClick={() => changeView(views.SHOP)}>Sklep</li>
+        <li onClick={() => changeView(views.OPTIONS)}>Ustawienia</li>
       </SideBarMenu>
       <button onClick={handleSignOut}>WYLOGUJ SIĘ</button>
     </Wrapper>

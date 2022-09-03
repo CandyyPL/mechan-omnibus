@@ -11,6 +11,9 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
+  z-index: 10;
 `
 
 export const Logo = styled.div`

@@ -4,8 +4,8 @@ import {
   JoinWrapper,
   UserDataWarning,
   Wrapper,
-} from 'components/JoinPart/JoinPart.styles'
-import JoinForm from 'components/JoinForm/JoinForm'
+} from 'components/Home/JoinPart/JoinPart.styles'
+import JoinForm from 'components/Home/JoinForm/JoinForm'
 import busImg from 'assets/bus-big.png'
 import excImg from 'assets/danger.png'
 

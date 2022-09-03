@@ -4,19 +4,24 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from 'pages/Home/Home'
 import Login from 'pages/Login/Login'
 import PrivateRoute from 'helpers/PrivateRoute'
+import Profile from 'pages/Profile/Profile'
 
 const App = () => {
   return (
     <Wrapper>
       <Router>
-        <>
-          {/* UNAUTH APP */}
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
-          </Routes>
-        </>
-        <PrivateRoute unauth={<Home />}>{/* AUTH APP */}</PrivateRoute>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route
+            path='/profile'
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
       </Router>
     </Wrapper>
   )

@@ -46,14 +46,20 @@ export const SideDiv = styled.div`
   justify-content: flex-end;
   align-items: center;
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   button {
-    width: 150px;
+    width: 140px;
     height: 60px;
 
     background-color: #00a7e1;
 
     border: 4px solid #eee;
     border-radius: 10px;
+    margin: 0 20px;
 
     font-size: 18px;
     font-family: 'Nunito', sans-serif;
@@ -64,11 +70,6 @@ export const SideDiv = styled.div`
 
     &:hover {
       border: 4px solid #111;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
     }
   }
 `

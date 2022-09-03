@@ -10,7 +10,7 @@ import {
   Smoke,
   Student,
   Wrapper,
-} from 'components/TopPart/TopPart.styles'
+} from 'components/Home/TopPart/TopPart.styles'
 import studentImg from 'assets/student.png'
 import lightsImg from 'assets/lights.png'
 

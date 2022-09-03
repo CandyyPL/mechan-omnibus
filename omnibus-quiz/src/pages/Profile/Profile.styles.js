@@ -1,0 +1,36 @@
+import styled from 'styled-components'
+
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+
+  background-color: #eee;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  position: absolute;
+  z-index: -1;
+`
+
+export const DashboardTopbar = styled.div`
+  width: 100%;
+  height: 100px;
+
+  border: 2px solid #222;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`
+
+export const DashboardWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`

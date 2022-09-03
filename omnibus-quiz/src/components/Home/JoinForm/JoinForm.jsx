@@ -6,7 +6,7 @@ import {
   FormField,
   SignUpInfo,
   Wrapper,
-} from 'components/JoinForm/JoinForm.styles'
+} from 'components/Home/JoinForm/JoinForm.styles'
 import axios from 'axios'
 
 const JoinForm = () => {

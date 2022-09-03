@@ -7,7 +7,7 @@ import AuthProvider from 'providers/AuthProvider'
 
 WebFont.load({
   google: {
-    families: ['Nunito', 'Chango', 'Charmonman'],
+    families: ['Nunito', 'Chango', 'Charmonman', 'Montserrat'],
   },
 })
 

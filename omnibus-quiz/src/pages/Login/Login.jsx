@@ -44,8 +44,8 @@ const Login = () => {
       .then(() => {
         setSuccess('Pomyślnie zarejestrowano!')
         setTimeout(() => {
-          navigate('/dashboard')
-        }, 2000)
+          navigate('/profile')
+        }, 1000)
       })
       .catch((err) => {
         if (err.code.includes('email-already-in-use')) {
@@ -53,8 +53,8 @@ const Login = () => {
             .then(() => {
               setSuccess('Pomyślnie zalogowano! Za chwilę nastąpi przekierowanie.')
               setTimeout(() => {
-                navigate('/dashboard')
-              }, 2000)
+                navigate('/profile')
+              }, 1000)
             })
             .catch((err) => console.log(err))
         }

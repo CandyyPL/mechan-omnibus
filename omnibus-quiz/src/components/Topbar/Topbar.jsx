@@ -23,20 +23,30 @@ const Topbar = () => {
       </Logo>
       <SideDiv>
         {currentUser != null && currentUser.uid ? (
-          <button onClick={handleSignOut}>
-            {/* <Link to='/dashboard'>PROFIL</Link> */}
-            WYLOGUJ
-          </button>
+          <>
+            {window.location.pathname == '/profile' ? (
+              <>
+                <Link to='/'>
+                  <button>STRONA GŁÓWNA</button>
+                </Link>
+                <button onClick={handleSignOut}>WYLOGUJ</button>
+              </>
+            ) : (
+              <Link to='/profile'>
+                <button>PROFIL</button>
+              </Link>
+            )}
+          </>
         ) : (
           <>
             {window.location.pathname == '/login' ? (
-              <button>
-                <Link to='/'>STRONA GŁÓWNA</Link>
-              </button>
+              <Link to='/'>
+                <button>STRONA GŁÓWNA</button>
+              </Link>
             ) : (
-              <button>
-                <Link to='/login'>ZALOGUJ SIĘ</Link>
-              </button>
+              <Link to='/login'>
+                <button>ZALOGUJ SIĘ</button>
+              </Link>
             )}
           </>
         )}

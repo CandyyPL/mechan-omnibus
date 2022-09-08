@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.26",
     "axios": "^0.27.2",
     "firebase": "^9.9.4",
     "moment": "^2.29.4",

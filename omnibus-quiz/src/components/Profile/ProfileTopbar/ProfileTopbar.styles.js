@@ -5,8 +5,32 @@ export const Wrapper = styled.div`
   height: 100px;
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+
+  .left,
+  .right {
+    width: 45%;
+    height: 100%;
+  }
+
+  .left {
+    font-size: 20px;
+    font-family: 'Nunito', sans-serif;
+    /* font-weight: bold; */
+
+    padding: 20px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 `
 
 export const TopbarStats = styled.span`
@@ -28,17 +52,12 @@ export const TopbarStats = styled.span`
     cursor: pointer;
   }
 
+  &.item:hover {
+    background-color: #ddd;
+  }
+
   img {
     height: 60%;
     margin-right: 15px;
-  }
-
-  img.avatar {
-    height: 90%;
-    margin-left: 10px;
-  }
-
-  &.item:hover {
-    background-color: #ddd;
   }
 `

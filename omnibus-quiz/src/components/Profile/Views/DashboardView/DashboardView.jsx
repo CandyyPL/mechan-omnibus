@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   GameModes,
   Games,
@@ -15,6 +15,11 @@ import uraniumRankImg from '@/assets/ranks/uranium.png'
 import platinumRankImg from '@/assets/ranks/platinum.png'
 import omnibusRankImg from '@/assets/bus-big.png'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
+import useModal from '@/hooks/useModal'
+import Modal from '@/components/Profile/Views/DashboardView/Modal/Modal'
+import { useForm } from 'react-hook-form'
+import { readData, writeData } from '@/auth/dbMethods'
+import { AuthContext } from '@/providers/AuthProvider'
 
 const ranks = {
   COPPER: {
@@ -48,6 +53,8 @@ const ranks = {
 }
 
 const DashboardView = () => {
+  const { currentUser } = useContext(AuthContext)
+
   const [currentRank, setCurrentRank] = useState(null)
   const [currentRankImg, setCurrentRankImg] = useState(null)
 
@@ -62,8 +69,33 @@ const DashboardView = () => {
     setCurrentRankImg(img)
   }, [])
 
+  useEffect(() => {
+    ;(async () => {
+      const res = await readData(`users/${currentUser.uid}`)
+      if (res === null) handleOpenModal()
+    })()
+  }, [])
+
+  const { handleOpenModal, handleCloseModal, isModalOpen } = useModal()
+
+  const { register, handleSubmit } = useForm()
+
+  const handleSetUsername = async (data) => {
+    await writeData({ username: data.username })
+    handleCloseModal()
+  }
+
   return (
     <Wrapper>
+      {isModalOpen && (
+        <Modal>
+          <span>Ustaw nową nazwę użytkownika</span>
+          <form onSubmit={handleSubmit(handleSetUsername)}>
+            <input type='text' placeholder='Nowa nazwa' {...register('username')} />
+            <button type='submit'>ZATWIERDŹ</button>
+          </form>
+        </Modal>
+      )}
       <UserStats>
         <RankWrapper>
           <img src={currentRankImg} alt='rank' />

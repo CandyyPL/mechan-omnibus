@@ -5,7 +5,7 @@ import {
   LevelStats,
   Stats,
   Wrapper,
-} from 'components/Profile/ProgressInfo/ProgressInfo.styles'
+} from '@/components/Profile/ProgressInfo/ProgressInfo.styles'
 import moment from 'moment/moment'
 import 'moment/locale/pl'
 

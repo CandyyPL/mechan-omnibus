@@ -1,7 +1,7 @@
 import React from 'react'
-import { Wrapper } from 'components/Topbar/Topbar.styles'
+import { Wrapper } from '@/components/Topbar/Topbar.styles'
 import { signOut } from 'firebase/auth'
-import { auth } from 'auth/firebase'
+import { auth } from '@/auth/firebase'
 
 const Topbar = () => {
   const handleSignOut = () => {

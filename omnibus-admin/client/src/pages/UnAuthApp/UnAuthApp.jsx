@@ -1,5 +1,5 @@
-import { auth } from 'auth/firebase'
-import { FormWrapper, Title, Wrapper } from 'pages/UnAuthApp/UnAuthApp.styles'
+import { auth } from '@/auth/firebase'
+import { FormWrapper, Title, Wrapper } from '@/pages/UnAuthApp/UnAuthApp.styles'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useRef, useState } from 'react'
 

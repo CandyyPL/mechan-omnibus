@@ -1,9 +1,9 @@
 import React from 'react'
 import { signOut } from 'firebase/auth'
-import { auth } from 'auth/firebase'
-import { views } from 'pages/Profile/Profile'
-import { SideBarLogo, SideBarMenu, Wrapper } from 'components/Profile/Sidebar/Sidebar.styles'
-import busImg from 'assets/bus-small.png'
+import { auth } from '@/auth/firebase'
+import { views } from '@/pages/Profile/Profile'
+import { SideBarLogo, SideBarMenu, Wrapper } from '@/components/Profile/Sidebar/Sidebar.styles'
+import busImg from '@/assets/bus-small.png'
 
 const Sidebar = ({ changeView }) => {
   const handleSignOut = () => {

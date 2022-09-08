@@ -6,15 +6,15 @@ import {
   RankWrapper,
   UserStats,
   Wrapper,
-} from 'components/Profile/Views/DashboardView/DashboardView.styles'
-import copperRankImg from 'assets/ranks/copper.png'
-import silverRankImg from 'assets/ranks/silver.png'
-import goldRankImg from 'assets/ranks/gold.png'
-import titaniumRankImg from 'assets/ranks/titanium.png'
-import uraniumRankImg from 'assets/ranks/uranium.png'
-import platinumRankImg from 'assets/ranks/platinum.png'
-import omnibusRankImg from 'assets/bus-big.png'
-import ProgressInfo from 'components/Profile/ProgressInfo/ProgressInfo'
+} from '@/components/Profile/Views/DashboardView/DashboardView.styles'
+import copperRankImg from '@/assets/ranks/copper.png'
+import silverRankImg from '@/assets/ranks/silver.png'
+import goldRankImg from '@/assets/ranks/gold.png'
+import titaniumRankImg from '@/assets/ranks/titanium.png'
+import uraniumRankImg from '@/assets/ranks/uranium.png'
+import platinumRankImg from '@/assets/ranks/platinum.png'
+import omnibusRankImg from '@/assets/bus-big.png'
+import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
 
 const ranks = {
   COPPER: {

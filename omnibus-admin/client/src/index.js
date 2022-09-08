@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import GlobalStyle from 'assets/styles/GlobalStyle'
+import GlobalStyle from '@/assets/styles/GlobalStyle'
 import WebFont from 'webfontloader'
-import App from 'pages/App/App'
+import App from '@/pages/App/App'
 
 WebFont.load({
   google: {

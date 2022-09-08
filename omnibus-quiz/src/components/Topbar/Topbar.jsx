@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { Logo, SideDiv, Wrapper } from 'components/Topbar/Topbar.styles'
-import busImg from 'assets/bus-small.png'
+import { Logo, SideDiv, Wrapper } from '@/components/Topbar/Topbar.styles'
+import busImg from '@/assets/bus-small.png'
 import { Link } from 'react-router-dom'
-import { AuthContext } from 'providers/AuthProvider'
+import { AuthContext } from '@/providers/AuthProvider'
 import { signOut } from 'firebase/auth'
-import { auth } from 'auth/firebase'
+import { auth } from '@/auth/firebase'
 
 const Topbar = () => {
   const { currentUser } = useContext(AuthContext)

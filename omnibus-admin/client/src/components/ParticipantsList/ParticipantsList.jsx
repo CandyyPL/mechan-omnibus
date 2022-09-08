@@ -1,8 +1,8 @@
 import React from 'react'
-import { Wrapper } from 'components/ParticipantsList/ParticipantsList.styles'
+import { Wrapper } from '@/components/ParticipantsList/ParticipantsList.styles'
 import { useContext } from 'react'
-import { ContentContext } from 'providers/ContentProvider'
-import ParticipantsListItem from 'components/ParticipantsListItem/ParticipantsListItem'
+import { ContentContext } from '@/providers/ContentProvider'
+import ParticipantsListItem from '@/components/ParticipantsListItem/ParticipantsListItem'
 
 const ParticipantsList = () => {
   const { content, loading, error } = useContext(ContentContext)

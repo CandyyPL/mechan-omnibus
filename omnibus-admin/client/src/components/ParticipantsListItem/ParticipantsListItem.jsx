@@ -1,9 +1,12 @@
 import React from 'react'
-import { StyledOptions, Wrapper } from 'components/ParticipantsListItem/ParticipantsListItem.styles'
+import {
+  StyledOptions,
+  Wrapper,
+} from '@/components/ParticipantsListItem/ParticipantsListItem.styles'
 import { useContext } from 'react'
-import { ContentContext } from 'providers/ContentProvider'
+import { ContentContext } from '@/providers/ContentProvider'
 import axios from 'axios'
-import optionsImg from 'assets/options.png'
+import optionsImg from '@/assets/options.png'
 import { useState } from 'react'
 
 const ParticipantsListItem = ({ item }) => {

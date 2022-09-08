@@ -1,10 +1,10 @@
 import React from 'react'
-import { TopbarStats, Wrapper } from 'components/Profile/ProfileTopbar/ProfileTopbar.styles'
-import streakColorImg from 'assets/fire-color.png'
-import streakBlackImg from 'assets/fire-black.png'
-import tireImg from 'assets/tire.png'
-import boyImg from 'assets/boy.png'
-import girlImg from 'assets/girl.png'
+import { TopbarStats, Wrapper } from '@/components/Profile/ProfileTopbar/ProfileTopbar.styles'
+import streakColorImg from '@/assets/fire-color.png'
+import streakBlackImg from '@/assets/fire-black.png'
+import tireImg from '@/assets/tire.png'
+import boyImg from '@/assets/boy.png'
+import girlImg from '@/assets/girl.png'
 
 const ProfileTopbar = () => {
   return (

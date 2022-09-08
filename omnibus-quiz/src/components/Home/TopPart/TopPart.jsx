@@ -10,9 +10,9 @@ import {
   Smoke,
   Student,
   Wrapper,
-} from 'components/Home/TopPart/TopPart.styles'
-import studentImg from 'assets/student.png'
-import lightsImg from 'assets/lights.png'
+} from '@/components/Home/TopPart/TopPart.styles'
+import studentImg from '@/assets/student.png'
+import lightsImg from '@/assets/lights.png'
 
 const TopPart = () => {
   const handleScrollToJoin = () => {

@@ -44,7 +44,7 @@ export const LevelFiller = styled.div`
 
   border-radius: inherit;
 
-  background-color: #ce2d4f;
+  background-color: #e5446d;
 `
 
 export const Stats = styled.div`
@@ -97,10 +97,10 @@ export const Stats = styled.div`
   div.fav-subject {
     width: 300px;
 
-    background-color: #669bbc;
+    background-color: #52d1dc;
   }
 
   div.last-game {
-    background-color: #43aa8b;
+    background-color: #4ce0b3;
   }
 `

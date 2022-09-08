@@ -36,7 +36,7 @@ const ProgressInfo = () => {
           </div>
           <div className='fav-subject'>
             <span className='text'>ULUBIONY PRZEDMIOT</span>
-            <span className='subtext'>{favSubject}</span>
+            <span className='subtext'>{favSubject.toUpperCase()}</span>
           </div>
           <div className='last-game'>
             <span className='text'>OSTATNIA GRA</span>

@@ -22,9 +22,9 @@ const Topbar = () => {
         <img src={busImg} alt='bus' />
       </Logo>
       <SideDiv>
-        {currentUser != null && currentUser.uid ? (
+        {currentUser !== null && currentUser.uid ? (
           <>
-            {window.location.pathname == '/profile' ? (
+            {window.location.pathname === '/profile' ? (
               <>
                 <Link to='/'>
                   <button>STRONA GŁÓWNA</button>
@@ -39,7 +39,7 @@ const Topbar = () => {
           </>
         ) : (
           <>
-            {window.location.pathname == '/login' ? (
+            {window.location.pathname === '/login' ? (
               <Link to='/'>
                 <button>STRONA GŁÓWNA</button>
               </Link>

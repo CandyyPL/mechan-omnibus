@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { DashboardTopbar, DashboardWrapper, Wrapper } from 'pages/Profile/Profile.styles'
+import { DashboardWrapper, Wrapper } from 'pages/Profile/Profile.styles'
 import Sidebar from 'components/Profile/Sidebar/Sidebar'
 import MainView from 'helpers/MainView'
+import ProfileTopbar from 'components/Profile/ProfileTopbar/ProfileTopbar'
 
 export const views = {
   DASHBOARD: 'dashboard',
@@ -17,7 +18,7 @@ const Profile = () => {
     <Wrapper>
       <Sidebar changeView={setMainView} />
       <DashboardWrapper>
-        <DashboardTopbar />
+        <ProfileTopbar />
         <MainView view={mainView} />
       </DashboardWrapper>
     </Wrapper>

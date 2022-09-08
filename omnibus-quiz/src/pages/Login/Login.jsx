@@ -70,10 +70,10 @@ const Login = () => {
           <input type='email' placeholder='e-mail' ref={emailRef} required />
           <input type='password' placeholder='password' ref={passwordRef} required />
           <button type='submit'>SIGN IN</button>
-          {success != '' ? (
+          {success !== '' ? (
             <LoginInfo type='success'>{success}</LoginInfo>
           ) : (
-            <>{error != '' ? <LoginInfo type='error'>{error}</LoginInfo> : null}</>
+            <>{error !== '' ? <LoginInfo type='error'>{error}</LoginInfo> : null}</>
           )}
         </FormWrapper>
       </FormContainer>

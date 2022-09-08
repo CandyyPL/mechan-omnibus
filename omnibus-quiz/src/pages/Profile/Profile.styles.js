@@ -14,17 +14,6 @@ export const Wrapper = styled.div`
   z-index: -1;
 `
 
-export const DashboardTopbar = styled.div`
-  width: 100%;
-  height: 100px;
-
-  border: 2px solid #222;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`
-
 export const DashboardWrapper = styled.div`
   width: 100%;
   height: 100%;

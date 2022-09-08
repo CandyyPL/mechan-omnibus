@@ -9,15 +9,16 @@ import girlImg from 'assets/girl.png'
 const ProfileTopbar = () => {
   return (
     <Wrapper>
-      <TopbarStats>
+      <TopbarStats className='item'>
         <img src={streakColorImg} alt='streak' />
         <span>14</span>
       </TopbarStats>
-      <TopbarStats>
+      <TopbarStats className='item'>
         <img src={tireImg} alt='tires' />
         <span>6</span>
       </TopbarStats>
-      <TopbarStats>
+      <TopbarStats className='avatar'>
+        {/* <span>Candyy</span> */}
         <img className='avatar' src={boyImg} alt='avatar' />
       </TopbarStats>
     </Wrapper>

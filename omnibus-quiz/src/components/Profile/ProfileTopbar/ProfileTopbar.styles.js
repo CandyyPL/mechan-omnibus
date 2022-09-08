@@ -10,24 +10,35 @@ export const Wrapper = styled.div`
 `
 
 export const TopbarStats = styled.span`
-  width: 80px;
-  height: 100%;
+  width: 100px;
+  height: 60%;
 
   margin-inline: 20px;
+  border-radius: 10px;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 
   font-size: 26px;
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
 
+  &.item {
+    cursor: pointer;
+  }
+
   img {
-    height: 40%;
+    height: 60%;
+    margin-right: 15px;
   }
 
   img.avatar {
-    height: 50%;
+    height: 90%;
+    margin-left: 10px;
+  }
+
+  &.item:hover {
+    background-color: #ddd;
   }
 `

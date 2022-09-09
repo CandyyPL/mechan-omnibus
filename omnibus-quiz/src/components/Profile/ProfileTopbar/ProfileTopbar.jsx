@@ -3,7 +3,6 @@ import { TopbarStats, Wrapper } from '@/components/Profile/ProfileTopbar/Profile
 import streakColorImg from '@/assets/fire-color.png'
 import streakBlackImg from '@/assets/fire-black.png'
 import tireImg from '@/assets/tire.png'
-import { auth } from '@/auth/firebase'
 import { AuthContext } from '@/providers/AuthProvider'
 
 const ProfileTopbar = () => {
@@ -12,10 +11,10 @@ const ProfileTopbar = () => {
   return (
     <Wrapper>
       <div className='left'>
-        {dbSnap && dbSnap.username && (
+        {dbSnap && dbSnap.name && dbSnap.username && (
           <span>
-            Zalogowano jako <span style={{ fontWeight: 'bold' }}>{dbSnap.username}</span> (
-            {auth.currentUser.email})
+            Zalogowano jako <span style={{ fontWeight: 'bold' }}>{dbSnap.name}</span> (
+            {dbSnap.username})
           </span>
         )}
       </div>

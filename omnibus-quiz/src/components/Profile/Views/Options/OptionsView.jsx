@@ -7,7 +7,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { updatePassword } from 'firebase/auth'
 import { AuthContext } from '@/providers/AuthProvider'
-import { writeData } from '@/auth/dbMethods'
+import { addData } from '@/auth/dbMethods'
 
 const OptionsView = () => {
   const [newPassErr, setNewPassErr] = useState('')
@@ -35,6 +35,11 @@ const OptionsView = () => {
       })
   }
 
+  const handleChangeUsername = async (data) => {
+    await addData({ username: data.newUsername })
+    reset({ newUsername: '' })
+  }
+
   return (
     <Wrapper>
       <h1>Ustawienia</h1>
@@ -55,13 +60,13 @@ const OptionsView = () => {
           )}
         </form>
       </ChangeTemplate>
-      {/* <ChangeTemplate>
+      <ChangeTemplate>
         <h2>Zmień nazwę użytkownika</h2>
         <form onSubmit={handleSubmit(handleChangeUsername)}>
           <input type='text' placeholder='Nowa nazwa' {...register('newUsername')} required />
           <button type='submit'>ZMIEŃ NAZWĘ</button>
         </form>
-      </ChangeTemplate> */}
+      </ChangeTemplate>
     </Wrapper>
   )
 }

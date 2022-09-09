@@ -1,6 +1,7 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { auth, fireDb } from '@/auth/firebase'
-import { ref, onValue } from 'firebase/database'
+import React, { createContext, useState } from 'react'
+import { auth } from '@/auth/firebase'
+import { addData, getData } from '@/auth/dbMethods'
+import axios from 'axios'
 
 export const AuthContext = createContext({})
 
@@ -12,6 +13,17 @@ const AuthProvider = ({ children }) => {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       setCurrentUser(user)
+      getData().then((data) => {
+        setDbSnap(data)
+      })
+
+      if (dbSnap !== null && dbSnap.name === undefined) {
+        axios.get('http://localhost:5000/getall').then((res) => {
+          const foundUser = res.data.users.find((item) => item.email === user.email)
+          addData({ name: foundUser.name })
+        })
+      }
+
       setLoading(false)
     } else {
       setDbSnap(null)
@@ -19,24 +31,6 @@ const AuthProvider = ({ children }) => {
       setLoading(false)
     }
   })
-
-  useEffect(() => {
-    try {
-      const userDataRef = ref(fireDb, `users/${auth.currentUser.uid}`)
-      onValue(
-        userDataRef,
-        (snap) => {
-          setDbSnap(snap.val())
-        },
-        {
-          onlyOnce: true,
-        }
-      )
-    } catch (err) {
-      console.log(err)
-      setDbSnap(null)
-    }
-  }, [currentUser])
 
   const provide = { currentUser, dbSnap }
 

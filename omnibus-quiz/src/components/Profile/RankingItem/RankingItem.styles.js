@@ -4,7 +4,7 @@ export const Wrapper = styled.li`
   width: 90%;
   height: 60px;
 
-  background-color: #fff;
+  background-color: ${({ owner }) => (owner === 'owner' ? '#8CAE68' : '#fff')};
 
   margin: 10px;
   padding: 10px;

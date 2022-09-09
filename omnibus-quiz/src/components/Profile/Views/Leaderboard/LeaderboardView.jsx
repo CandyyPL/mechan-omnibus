@@ -8,7 +8,7 @@ const ranking = [
     ranking: 1,
     score: 12584,
     favSubject: 'Programowanie',
-    id: 0,
+    id: 'yQYTLGUXYQfdeXPG8jZbip2lZvH2',
   },
   {
     name: 'Marcin Molak',

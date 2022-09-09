@@ -1,10 +1,15 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FormContainer, FormWrapper, LoginInfo, Wrapper } from '@/pages/Login/Login.styles'
 import Topbar from '@/components/Topbar/Topbar'
 import { auth } from '@/auth/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import useModal from '@/hooks/useModal'
+import { AuthContext } from '@/providers/AuthProvider'
+import { addData } from '@/auth/dbMethods'
+import { useForm } from 'react-hook-form'
+import Modal from '@/pages/Login/Modal/Modal'
 
 const Login = () => {
   const [error, setError] = useState('')
@@ -16,6 +21,22 @@ const Login = () => {
   const checkUserState = async (email) => {
     const res = await axios.post('http://localhost:5000/chkstate', { email })
     return res.data.state
+  }
+
+  const { dbSnap } = useContext(AuthContext)
+
+  const { register, handleSubmit } = useForm()
+
+  const { handleOpenModal, handleCloseModal, isModalOpen } = useModal()
+
+  // useEffect(() => {
+  //   if (dbSnap === null || dbSnap.username === undefined) handleOpenModal()
+  // }, [dbSnap])
+
+  const handleSetUsername = async (data) => {
+    await addData({ username: data.username })
+    handleCloseModal()
+    navigate('/profile')
   }
 
   const navigate = useNavigate()
@@ -44,7 +65,7 @@ const Login = () => {
       .then(() => {
         setSuccess('Pomyślnie zarejestrowano!')
         setTimeout(() => {
-          navigate('/profile')
+          handleOpenModal()
         }, 1000)
       })
       .catch((err) => {
@@ -54,7 +75,7 @@ const Login = () => {
               setSuccess('Pomyślnie zalogowano! Za chwilę nastąpi przekierowanie.')
               setTimeout(() => {
                 navigate('/profile')
-              }, 1000)
+              }, 500)
             })
             .catch((err) => console.log(err))
         }
@@ -63,6 +84,15 @@ const Login = () => {
 
   return (
     <Wrapper>
+      {isModalOpen && (
+        <Modal>
+          <span>Ustaw nową nazwę użytkownika</span>
+          <form onSubmit={handleSubmit(handleSetUsername)}>
+            <input type='text' placeholder='Nowa nazwa' {...register('username')} />
+            <button type='submit'>ZATWIERDŹ</button>
+          </form>
+        </Modal>
+      )}
       <Topbar />
       <FormContainer>
         <FormWrapper onSubmit={handleSignIn}>

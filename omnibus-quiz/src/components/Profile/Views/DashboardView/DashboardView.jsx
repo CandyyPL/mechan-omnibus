@@ -16,10 +16,6 @@ import uraniumRankImg from '@/assets/ranks/uranium.png'
 import platinumRankImg from '@/assets/ranks/platinum.png'
 import omnibusRankImg from '@/assets/bus-big.png'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
-import useModal from '@/hooks/useModal'
-import Modal from '@/components/Profile/Views/DashboardView/Modal/Modal'
-import { useForm } from 'react-hook-form'
-import { writeData } from '@/auth/dbMethods'
 import { AuthContext } from '@/providers/AuthProvider'
 
 const ranks = {
@@ -74,28 +70,8 @@ const DashboardView = () => {
     setCurrentRankImg(img)
   }, [])
 
-  const { handleOpenModal, handleCloseModal, isModalOpen } = useModal()
-
-  const { register, handleSubmit } = useForm()
-
-  const handleSetUsername = async (data) => {
-    await writeData({ username: data.username })
-    handleCloseModal()
-  }
-
-  console.log('a')
-
   return (
     <Wrapper>
-      {isModalOpen && (
-        <Modal>
-          <span>Ustaw nową nazwę użytkownika</span>
-          <form onSubmit={handleSubmit(handleSetUsername)}>
-            <input type='text' placeholder='Nowa nazwa' {...register('username')} />
-            <button type='submit'>ZATWIERDŹ</button>
-          </form>
-        </Modal>
-      )}
       <UserStats>
         <RankWrapper>
           <img src={currentRankImg} alt='rank' />

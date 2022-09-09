@@ -31,6 +31,8 @@ export const Wrapper = styled.div`
 
     cursor: pointer;
 
+    transition: background-color 0.2s;
+
     &:hover {
       background-color: #222;
       color: #eee;
@@ -66,18 +68,44 @@ export const SideBarMenu = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   li {
-    width: 100%;
+    width: fit-content;
     height: 50px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
 
     font-size: 24px;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
+    text-align: left;
 
     margin-bottom: 20px;
 
     cursor: pointer;
+
+    &::after {
+      content: '';
+
+      width: 100%;
+      height: 2px;
+
+      background-color: #111;
+
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
   }
 `

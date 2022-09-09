@@ -1,6 +1,6 @@
-import { readData } from '@/auth/dbMethods'
-import { auth } from '@/auth/firebase'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
+import { auth, fireDb } from '@/auth/firebase'
+import { ref, onValue } from 'firebase/database'
 
 export const AuthContext = createContext({})
 
@@ -11,8 +11,6 @@ const AuthProvider = ({ children }) => {
 
   auth.onAuthStateChanged(async (user) => {
     if (user) {
-      const dbRes = await readData(`users/${user.uid}`)
-      setDbSnap(dbRes)
       setCurrentUser(user)
       setLoading(false)
     } else {
@@ -21,6 +19,24 @@ const AuthProvider = ({ children }) => {
       setLoading(false)
     }
   })
+
+  useEffect(() => {
+    try {
+      const userDataRef = ref(fireDb, `users/${auth.currentUser.uid}`)
+      onValue(
+        userDataRef,
+        (snap) => {
+          setDbSnap(snap.val())
+        },
+        {
+          onlyOnce: true,
+        }
+      )
+    } catch (err) {
+      console.log(err)
+      setDbSnap(null)
+    }
+  }, [currentUser])
 
   const provide = { currentUser, dbSnap }
 

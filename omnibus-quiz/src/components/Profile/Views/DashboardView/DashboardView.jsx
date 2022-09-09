@@ -7,6 +7,7 @@ import {
   UserStats,
   Wrapper,
 } from '@/components/Profile/Views/DashboardView/DashboardView.styles'
+import unrankedImg from '@/assets/ranks/unranked.png'
 import copperRankImg from '@/assets/ranks/copper.png'
 import silverRankImg from '@/assets/ranks/silver.png'
 import goldRankImg from '@/assets/ranks/gold.png'
@@ -18,10 +19,14 @@ import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
 import useModal from '@/hooks/useModal'
 import Modal from '@/components/Profile/Views/DashboardView/Modal/Modal'
 import { useForm } from 'react-hook-form'
-import { readData, writeData } from '@/auth/dbMethods'
+import { writeData } from '@/auth/dbMethods'
 import { AuthContext } from '@/providers/AuthProvider'
 
 const ranks = {
+  UNRANKED: {
+    name: 'unranked',
+    img: unrankedImg,
+  },
   COPPER: {
     name: 'Miedź',
     img: copperRankImg,
@@ -53,7 +58,7 @@ const ranks = {
 }
 
 const DashboardView = () => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser, dbSnap } = useContext(AuthContext)
 
   const [currentRank, setCurrentRank] = useState(null)
   const [currentRankImg, setCurrentRankImg] = useState(null)
@@ -69,13 +74,6 @@ const DashboardView = () => {
     setCurrentRankImg(img)
   }, [])
 
-  useEffect(() => {
-    ;(async () => {
-      const res = await readData(`users/${currentUser.uid}`)
-      if (res === null) handleOpenModal()
-    })()
-  }, [])
-
   const { handleOpenModal, handleCloseModal, isModalOpen } = useModal()
 
   const { register, handleSubmit } = useForm()
@@ -84,6 +82,8 @@ const DashboardView = () => {
     await writeData({ username: data.username })
     handleCloseModal()
   }
+
+  console.log('a')
 
   return (
     <Wrapper>
@@ -99,9 +99,13 @@ const DashboardView = () => {
       <UserStats>
         <RankWrapper>
           <img src={currentRankImg} alt='rank' />
-          <span>
-            Ranga {rank + 1}: {currentRank}
-          </span>
+          {rank === 0 ? (
+            <span>Poza rankingiem</span>
+          ) : (
+            <span>
+              Ranga {rank}: {currentRank}
+            </span>
+          )}
         </RankWrapper>
         <ProgressInfo />
       </UserStats>

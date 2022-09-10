@@ -87,7 +87,7 @@ const Login = () => {
             .then(() => {
               setSuccess('Pomyślnie zalogowano! Za chwilę nastąpi przekierowanie.')
               setTimeout(() => {
-                navigate('/profile')
+                navigate('/')
               }, 500)
             })
             .catch((err) => console.log(err))

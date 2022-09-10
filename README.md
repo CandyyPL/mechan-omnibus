@@ -14,8 +14,6 @@ This project is written in **React.js** and **Node.js**
 
 ## Sign up / login instructions
 
----
-
 In order to sign up, head on the `omnibus-quiz` app home page (`/home`) and fill the sign up form.
 
 Next, admin will have to approve your sign up request on **admin panel** (`omnibus-admin/client`).

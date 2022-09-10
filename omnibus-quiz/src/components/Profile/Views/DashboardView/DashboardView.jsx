@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
+  Achievements,
+  GameButtons,
   GameModes,
-  Games,
-  LastGames,
+  GamesInfo,
+  LastGameInfo,
   RankWrapper,
   UserStats,
   Wrapper,
@@ -85,10 +87,46 @@ const DashboardView = () => {
         </RankWrapper>
         <ProgressInfo />
       </UserStats>
-      <Games>
-        <GameModes />
-        <LastGames />
-      </Games>
+      <GamesInfo>
+        <GameModes>
+          <GameButtons>
+            <button className='play'>GRAJ</button>
+            <button className='history'>HISTORIA GIER</button>
+          </GameButtons>
+          <LastGameInfo>
+            <span className='title'>OSTATNIA GRA</span>
+            <div className='stats'>
+              <div className='stats-inner subject'>
+                <span className='subtext'>PROGRAMOWANIE</span>
+                <span className='text'>PRZEDMIOT</span>
+              </div>
+              <div className='stats-inner subject'>
+                <span className='subtext'>9 na 10</span>
+                <span className='text'>POPRAWNE ODPOWIEDZI</span>
+              </div>
+              <div className='stats-inner score'>
+                <span className='subtext'>2846</span>
+                <span className='text'>WYNIK</span>
+              </div>
+            </div>
+          </LastGameInfo>
+        </GameModes>
+        <div className='separator'></div>
+        <Achievements>
+          <div className='achv'>
+            <img src='https://via.placeholder.com/512x512' alt='' />
+            <span>Lorem ipsum dolor sit amet.</span>
+          </div>
+          <div className='achv'>
+            <img src='https://via.placeholder.com/512x512' alt='' />
+            <span>Lorem, ipsum.</span>
+          </div>
+          <div className='achv'>
+            <img src='https://via.placeholder.com/512x512' alt='' />
+            <span>Lorem, ipsum dolor.</span>
+          </div>
+        </Achievements>
+      </GamesInfo>
     </Wrapper>
   )
 }

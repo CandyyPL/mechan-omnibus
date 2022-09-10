@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { auth } from '@/auth/firebase'
 import { addData, getData } from '@/auth/dbMethods'
 import axios from 'axios'

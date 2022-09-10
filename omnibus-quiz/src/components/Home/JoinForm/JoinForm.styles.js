@@ -37,10 +37,6 @@ export const FormField = styled.input`
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
   text-align: center;
-
-  &:focus {
-    outline: none;
-  }
 `
 
 export const ClassChoose = styled.div`

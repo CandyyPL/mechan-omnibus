@@ -11,12 +11,12 @@ const Sidebar = ({ changeView }) => {
 
   const handleSignOut = () => {
     signOut(auth)
-    navigate('/')
+    navigate('/home')
   }
 
   return (
     <Wrapper>
-      <SideBarLogo>
+      <SideBarLogo onClick={() => navigate('/home')}>
         OMNIBUS <img src={busImg} alt='bus' />
       </SideBarLogo>
       <SideBarMenu>

@@ -58,7 +58,7 @@ export const Stats = styled.div`
   div {
     content: '';
 
-    width: 200px;
+    width: 10.5vw;
     height: 85px;
 
     border-radius: 20px;
@@ -81,12 +81,12 @@ export const Stats = styled.div`
       align-items: center;
 
       width: 100%;
-      font-size: 16px;
+      font-size: 0.85vw;
       text-align: right;
     }
 
     span.subtext {
-      font-size: 22px;
+      font-size: 1.2vw;
     }
   }
 
@@ -95,7 +95,7 @@ export const Stats = styled.div`
   }
 
   div.fav-subject {
-    width: 300px;
+    width: 15vw;
 
     background-color: #52d1dc;
   }

@@ -36,7 +36,8 @@ export const FormWrapper = styled.form`
     margin-bottom: 50px;
   }
 
-  input {
+  input[type='email'],
+  input[type='password'] {
     width: 300px;
     height: 50px;
 
@@ -58,8 +59,21 @@ export const FormWrapper = styled.form`
     }
 
     &:focus {
-      outline: none;
+      /* outline: none; */
     }
+  }
+
+  span.persist-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+  }
+
+  input[type='checkbox'] {
+    width: 15px;
+    height: 15px;
   }
 
   button {

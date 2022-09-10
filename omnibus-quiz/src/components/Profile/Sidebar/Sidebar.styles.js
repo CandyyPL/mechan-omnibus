@@ -53,6 +53,8 @@ export const SideBarLogo = styled.div`
   justify-content: center;
   align-items: center;
 
+  cursor: pointer;
+
   img {
     height: 50px;
     margin-left: 20px;

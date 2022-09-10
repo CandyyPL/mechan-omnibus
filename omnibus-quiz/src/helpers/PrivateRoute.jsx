@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
 
   if (currentUser && currentUser.uid) return children
 
-  return <Navigate to='/' />
+  return <Navigate to='/home' />
 }
 
 export default PrivateRoute

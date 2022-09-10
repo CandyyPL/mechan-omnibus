@@ -2,7 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FormContainer, FormWrapper, LoginInfo, Wrapper } from '@/pages/Login/Login.styles'
 import Topbar from '@/components/Topbar/Topbar'
 import { auth } from '@/auth/firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  browserLocalPersistence,
+  browserSessionPersistence,
+  createUserWithEmailAndPassword,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useModal from '@/hooks/useModal'
@@ -14,9 +20,6 @@ import Modal from '@/pages/Login/Modal/Modal'
 const Login = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-
-  const emailRef = useRef(null)
-  const passwordRef = useRef(null)
 
   const checkUserState = async (email) => {
     const res = await axios.post('http://localhost:5000/chkstate', { email })
@@ -41,14 +44,12 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const handleSignIn = async (e) => {
-    e.preventDefault()
-
-    const email = emailRef.current.value
-    const password = passwordRef.current.value
+  const handleSignIn = async (data) => {
+    const email = data.email
+    const password = data.password
 
     if (email === undefined || password === undefined) {
-      setError('Invalid credentials')
+      setError('Niepoprawny email lub hasło!')
       return
     }
 
@@ -61,6 +62,18 @@ const Login = () => {
       return
     }
 
+    if (data.loginPersist === true) {
+      setPersistence(auth, browserLocalPersistence).then(() => {
+        handleSignUser(data.email, data.password)
+      })
+    } else if (data.loginPersist === false) {
+      setPersistence(auth, browserSessionPersistence).then(() => {
+        handleSignUser(data.email, data.password)
+      })
+    }
+  }
+
+  const handleSignUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         setSuccess('Pomyślnie zarejestrowano!')
@@ -95,11 +108,15 @@ const Login = () => {
       )}
       <Topbar />
       <FormContainer>
-        <FormWrapper onSubmit={handleSignIn}>
+        <FormWrapper onSubmit={handleSubmit(handleSignIn)}>
           <h1>Zaloguj się</h1>
-          <input type='email' placeholder='e-mail' ref={emailRef} required />
-          <input type='password' placeholder='password' ref={passwordRef} required />
-          <button type='submit'>SIGN IN</button>
+          <input type='email' placeholder='e-mail' {...register('email')} required />
+          <input type='password' placeholder='password' {...register('password')} required />
+          <span className='persist-wrapper'>
+            <input type='checkbox' name='persist' {...register('loginPersist')} />
+            <label htmlFor='persist'>Nie wylogowuj mnie</label>
+          </span>
+          <button type='submit'>ZALOGUJ</button>
           {success !== '' ? (
             <LoginInfo type='success'>{success}</LoginInfo>
           ) : (

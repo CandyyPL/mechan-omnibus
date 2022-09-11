@@ -1,25 +1,20 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { auth, firestore } from '@/auth/firebase'
+import { auth, database } from '@/auth/firebase'
+import { child, get, ref, set, update } from 'firebase/database'
 
 export const addData = async (data) => {
   try {
-    const docRef = await setDoc(
-      doc(firestore, 'users', auth.currentUser.uid),
-      { ...data },
-      { merge: true }
-    )
-    console.log(docRef)
+    await update(ref(database, `users/${auth.currentUser.uid}`), { ...data })
   } catch (err) {
     console.log(err)
   }
 }
 
-export const getData = async () => {
+export const getData = async (uid) => {
   try {
-    const docRef = doc(firestore, 'users', auth.currentUser.uid)
-    const docSnap = await getDoc(docRef)
+    const snap = await get(child(ref(database), `users/${uid}`))
 
-    if (docSnap.exists()) return docSnap.data()
+    if (snap.exists()) return snap.val()
+    else return null
   } catch (err) {
     console.log(err)
   }

@@ -67,6 +67,7 @@ const OptionsView = () => {
           <button type='submit'>ZMIEŃ NAZWĘ</button>
         </form>
       </ChangeTemplate>
+      <h2 style={{ marginTop: '100px' }}>{currentUser.email}</h2>
     </Wrapper>
   )
 }

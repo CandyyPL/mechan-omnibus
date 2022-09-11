@@ -1,7 +1,8 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import { auth } from '@/auth/firebase'
 import { addData, getData } from '@/auth/dbMethods'
 import axios from 'axios'
+import Loading from '@/pages/Loading/Loading'
 
 export const AuthContext = createContext({})
 
@@ -13,7 +14,7 @@ const AuthProvider = ({ children }) => {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       setCurrentUser(user)
-      getData().then((data) => {
+      getData(user.uid).then((data) => {
         setDbSnap(data)
       })
 
@@ -34,7 +35,9 @@ const AuthProvider = ({ children }) => {
 
   const provide = { currentUser, dbSnap }
 
-  return <AuthContext.Provider value={provide}>{loading ? null : children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={provide}>{loading ? <Loading /> : children}</AuthContext.Provider>
+  )
 }
 
 export default AuthProvider

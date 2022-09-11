@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { FormContainer, FormWrapper, LoginInfo, Wrapper } from '@/pages/Login/Login.styles'
 import Topbar from '@/components/Topbar/Topbar'
 import { auth } from '@/auth/firebase'
@@ -13,9 +13,10 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useModal from '@/hooks/useModal'
 import { AuthContext } from '@/providers/AuthProvider'
-import { addData } from '@/auth/dbMethods'
 import { useForm } from 'react-hook-form'
 import Modal from '@/components/Modal/Modal'
+import { addData } from '@/auth/dbMethods'
+import ModalBackground from '@/components/Modal/ModalBackground'
 
 const Login = () => {
   const [error, setError] = useState('')
@@ -104,15 +105,17 @@ const Login = () => {
   return (
     <Wrapper>
       {isModalOpen && (
-        <Modal>
-          <span>Ustaw nową nazwę użytkownika</span>
-          <form onSubmit={handleSubmit(handleSetUsername)}>
-            <input type='text' placeholder='Nowa nazwa' {...register('username')} />
-            <button type='submit' ref={setUsernameButtonRef}>
-              ZATWIERDŹ
-            </button>
-          </form>
-        </Modal>
+        <ModalBackground>
+          <Modal>
+            <span>Ustaw nową nazwę użytkownika</span>
+            <form onSubmit={handleSubmit(handleSetUsername)}>
+              <input type='text' placeholder='Nowa nazwa' {...register('username')} />
+              <button type='submit' ref={setUsernameButtonRef}>
+                ZATWIERDŹ
+              </button>
+            </form>
+          </Modal>
+        </ModalBackground>
       )}
       <Topbar />
       <FormContainer>

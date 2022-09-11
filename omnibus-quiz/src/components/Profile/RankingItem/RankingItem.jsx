@@ -9,7 +9,7 @@ import ModalBackground from '@/components/Modal/ModalBackground'
 import { StyledModal } from '@/components/Profile/RankingItem/RankingItemModal.styles'
 
 const RankingItem = ({ item }) => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser, dbSnap } = useContext(AuthContext)
 
   const [userMedal, setUserMedal] = useState(null)
   const [itemStyle, setItemStyle] = useState(null)
@@ -46,7 +46,9 @@ const RankingItem = ({ item }) => {
         ) : (
           <span className='rank'>{item.ranking}.</span>
         )}
-        <span className='name'>{item.name}</span>
+        <span className='name'>
+          {item.name} ({dbSnap.username})
+        </span>
       </UserData>
       <div className='right'>
         <UserStat bgColor='#52d1dc'>{item.favSubject}</UserStat>

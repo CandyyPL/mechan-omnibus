@@ -59,6 +59,8 @@ const ranks = {
 }
 
 const DashboardView = () => {
+  document.title = 'Dashboard'
+
   const { currentUser, dbSnap } = useContext(AuthContext)
 
   const [currentRank, setCurrentRank] = useState(null)

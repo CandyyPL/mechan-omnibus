@@ -4,6 +4,9 @@ import goldMedalImg from '@/assets/gold-medal.png'
 import silverMedalImg from '@/assets/silver-medal.png'
 import bronzeMedalImg from '@/assets/bronze-medal.png'
 import { AuthContext } from '@/providers/AuthProvider'
+import useModal from '@/hooks/useModal'
+import ModalBackground from '@/components/Modal/ModalBackground'
+import { StyledModal } from '@/components/Profile/RankingItem/RankingItemModal.styles'
 
 const RankingItem = ({ item }) => {
   const { currentUser } = useContext(AuthContext)
@@ -23,8 +26,18 @@ const RankingItem = ({ item }) => {
     }
   }, [])
 
+  const { isModalOpen, handleOpenModal } = useModal()
+
   return (
-    <Wrapper owner={itemStyle}>
+    <Wrapper owner={itemStyle} onClick={handleOpenModal}>
+      {isModalOpen && (
+        <ModalBackground>
+          <StyledModal>
+            <h1>User Details</h1>
+            <h2>{item.name}</h2>
+          </StyledModal>
+        </ModalBackground>
+      )}
       <UserData>
         {item.ranking < 4 ? (
           <span className='rank'>

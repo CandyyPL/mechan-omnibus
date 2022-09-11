@@ -19,6 +19,9 @@ import platinumRankImg from '@/assets/ranks/platinum.png'
 import omnibusRankImg from '@/assets/bus-big.png'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
 import { AuthContext } from '@/providers/AuthProvider'
+import useModal from '@/hooks/useModal'
+import ModalBackground from '@/components/Modal/ModalBackground'
+import Modal from '@/components/Modal/Modal'
 
 const ranks = {
   UNRANKED: {
@@ -72,8 +75,18 @@ const DashboardView = () => {
     setCurrentRankImg(img)
   }, [])
 
+  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
+
   return (
     <Wrapper>
+      {isModalOpen && (
+        <ModalBackground>
+          <Modal>
+            <h1>HISTORIA GIER</h1>
+            <button onClick={handleCloseModal}>X</button>
+          </Modal>
+        </ModalBackground>
+      )}
       <UserStats>
         <RankWrapper>
           <img src={currentRankImg} alt='rank' />
@@ -91,7 +104,9 @@ const DashboardView = () => {
         <GameModes>
           <GameButtons>
             <button className='play'>GRAJ</button>
-            <button className='history'>HISTORIA GIER</button>
+            <button className='history' onClick={handleOpenModal}>
+              HISTORIA GIER
+            </button>
           </GameButtons>
           <LastGameInfo>
             <span className='title'>OSTATNIA GRA</span>

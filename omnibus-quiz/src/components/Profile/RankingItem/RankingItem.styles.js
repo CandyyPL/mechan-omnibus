@@ -30,6 +30,8 @@ export const Wrapper = styled.li`
       color: #000;
     }
   }
+
+  cursor: pointer;
 `
 
 export const UserData = styled.div`

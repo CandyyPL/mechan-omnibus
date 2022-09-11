@@ -15,7 +15,7 @@ import useModal from '@/hooks/useModal'
 import { AuthContext } from '@/providers/AuthProvider'
 import { addData } from '@/auth/dbMethods'
 import { useForm } from 'react-hook-form'
-import Modal from '@/pages/Login/Modal/Modal'
+import Modal from '@/components/Modal/Modal'
 
 const Login = () => {
   const [error, setError] = useState('')
@@ -39,10 +39,13 @@ const Login = () => {
   const handleSetUsername = async (data) => {
     await addData({ username: data.username })
     handleCloseModal()
-    navigate('/profile')
+    navigate('/')
   }
 
   const navigate = useNavigate()
+
+  const loginButtonRef = useRef(null)
+  const setUsernameButtonRef = useRef(null)
 
   const handleSignIn = async (data) => {
     const email = data.email
@@ -53,12 +56,15 @@ const Login = () => {
       return
     }
 
+    loginButtonRef.current.disabled = true
+
     const approvalState = await checkUserState(email)
 
     if (approvalState === null || approvalState === 'blocked') {
       setError(
         'Nie możesz się teraz zalogować. Pamiętaj, że przed pierwszym logowaniem musisz się zapisać na stronie głównej. Jeśli sytuacja się powtarza, skontaktuj się z administratorem serwisu.'
       )
+      loginButtonRef.current.disabled = false
       return
     }
 
@@ -102,7 +108,9 @@ const Login = () => {
           <span>Ustaw nową nazwę użytkownika</span>
           <form onSubmit={handleSubmit(handleSetUsername)}>
             <input type='text' placeholder='Nowa nazwa' {...register('username')} />
-            <button type='submit'>ZATWIERDŹ</button>
+            <button type='submit' ref={setUsernameButtonRef}>
+              ZATWIERDŹ
+            </button>
           </form>
         </Modal>
       )}
@@ -116,7 +124,9 @@ const Login = () => {
             <input type='checkbox' name='persist' {...register('loginPersist')} />
             <label htmlFor='persist'>Nie wylogowuj mnie</label>
           </span>
-          <button type='submit'>ZALOGUJ</button>
+          <button type='submit' ref={loginButtonRef}>
+            ZALOGUJ
+          </button>
           {success !== '' ? (
             <LoginInfo type='success'>{success}</LoginInfo>
           ) : (

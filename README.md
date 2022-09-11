@@ -6,11 +6,7 @@ The `omnibus-quiz` app is the quiz platform itself and the `omnibus-admin` app i
 
 This project is written in **React.js** and **Node.js**
 
-&nbsp;
-
 ## Startup instructions are in **README files** inside each app's directory
-
-&nbsp;
 
 ## Sign up / login instructions
 

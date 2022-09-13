@@ -6,7 +6,7 @@ const Loading = () => {
 
   return (
     <Wrapper>
-      <div class='lds-dual-ring'></div>
+      <div className='lds-dual-ring'></div>
       <h1>Loading</h1>
     </Wrapper>
   )

@@ -102,5 +102,9 @@ export const Stats = styled.div`
 
   div.last-game {
     background-color: #4ce0b3;
+
+    span.subtext {
+      font-size: 1vw;
+    }
   }
 `

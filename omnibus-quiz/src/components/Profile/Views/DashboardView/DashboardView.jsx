@@ -18,10 +18,10 @@ import uraniumRankImg from '@/assets/ranks/uranium.png'
 import platinumRankImg from '@/assets/ranks/platinum.png'
 import omnibusRankImg from '@/assets/bus-big.png'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
-import { AuthContext } from '@/providers/AuthProvider'
 import useModal from '@/hooks/useModal'
 import ModalBackground from '@/components/Modal/ModalBackground'
 import Modal from '@/components/Modal/Modal'
+import { GameContext } from '@/providers/GameProvider'
 
 const ranks = {
   UNRANKED: {
@@ -61,7 +61,7 @@ const ranks = {
 const DashboardView = () => {
   document.title = 'Dashboard'
 
-  const { currentUser, dbSnap } = useContext(AuthContext)
+  const { testGame, lastGameInfo } = useContext(GameContext)
 
   const [currentRank, setCurrentRank] = useState(null)
   const [currentRankImg, setCurrentRankImg] = useState(null)
@@ -105,7 +105,9 @@ const DashboardView = () => {
       <GamesInfo>
         <GameModes>
           <GameButtons>
-            <button className='play'>GRAJ</button>
+            <button className='play' onClick={testGame}>
+              GRAJ
+            </button>
             <button className='history' onClick={handleOpenModal}>
               HISTORIA GIER
             </button>
@@ -122,7 +124,9 @@ const DashboardView = () => {
                 <span className='text'>POPRAWNE ODPOWIEDZI</span>
               </div>
               <div className='stats-inner score'>
-                <span className='subtext'>2846</span>
+                <span className='subtext'>
+                  {lastGameInfo && lastGameInfo.score ? lastGameInfo.score : 'N/A'}
+                </span>
                 <span className='text'>WYNIK</span>
               </div>
             </div>

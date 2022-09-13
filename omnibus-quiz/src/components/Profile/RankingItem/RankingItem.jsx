@@ -7,12 +7,26 @@ import { AuthContext } from '@/providers/AuthProvider'
 import useModal from '@/hooks/useModal'
 import ModalBackground from '@/components/Modal/ModalBackground'
 import { StyledModal } from '@/components/Profile/RankingItem/RankingItemModal.styles'
+import { getData } from '@/auth/dbMethods'
 
 const RankingItem = ({ item }) => {
   const { currentUser, dbSnap } = useContext(AuthContext)
 
+  const [userDbSnap, setUserDbSnap] = useState(null)
   const [userMedal, setUserMedal] = useState(null)
   const [itemStyle, setItemStyle] = useState(null)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        getData(item.uid).then((snap) => {
+          setUserDbSnap(snap)
+        })
+      } catch (err) {
+        setUserDbSnap(null)
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     if (item.ranking === 1) return setUserMedal(goldMedalImg)
@@ -21,7 +35,7 @@ const RankingItem = ({ item }) => {
   }, [])
 
   useEffect(() => {
-    if (currentUser.uid == item.id) {
+    if (currentUser.uid == item.uid) {
       setItemStyle('owner')
     }
   }, [])
@@ -47,7 +61,7 @@ const RankingItem = ({ item }) => {
           <span className='rank'>{item.ranking}.</span>
         )}
         <span className='name'>
-          {item.name} ({dbSnap.username})
+          {item.name}&nbsp;{userDbSnap && userDbSnap.username && `(${userDbSnap.username})`}
         </span>
       </UserData>
       <div className='right'>

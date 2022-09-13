@@ -4,53 +4,26 @@ import RankingItem from '@/components/Profile/RankingItem/RankingItem'
 
 const ranking = [
   {
+    id: 0,
     name: 'Marcel Betański',
     ranking: 1,
     score: 12584,
     favSubject: 'Programowanie',
-    id: 'yQYTLGUXYQfdeXPG8jZbip2lZvH2',
+    uid: 'G1wWbKEbMzYDdyT905BucSQ5ZA03',
   },
   {
+    id: 1,
     name: 'Marcin Molak',
     ranking: 2,
     score: 11538,
     favSubject: 'Grafika',
-    id: 1,
   },
   {
+    id: 2,
     name: 'Damian Jaworski',
     ranking: 3,
     score: 10163,
     favSubject: 'Grafika',
-    id: 2,
-  },
-  {
-    name: 'Kamil Kondracki',
-    ranking: 4,
-    score: 8452,
-    favSubject: 'Geografia',
-    id: 3,
-  },
-  {
-    name: 'Tymoteusz Błaszczyk',
-    ranking: 5,
-    score: 8356,
-    favSubject: 'Polityka',
-    id: 4,
-  },
-  {
-    name: 'Szymon Musiał',
-    ranking: 6,
-    score: 8041,
-    favSubject: 'Matematyka',
-    id: 5,
-  },
-  {
-    name: 'Michał Zieliński',
-    ranking: 7,
-    score: 7538,
-    favSubject: 'Wych. Fizyczne',
-    id: 6,
   },
 ]
 

@@ -8,19 +8,24 @@ import {
 } from '@/components/Profile/ProgressInfo/ProgressInfo.styles'
 import moment from 'moment/moment'
 import 'moment/locale/pl'
+import { useContext } from 'react'
+import { GameContext } from '@/providers/GameProvider'
 
 const ProgressInfo = () => {
+  const { lastGameInfo } = useContext(GameContext)
+
   //! PLACEHOLDERS BEGIN
 
   const level = 1
 
   const highestScore = 1337
   const favSubject = 'PROGRAMOWANIE'
-  const lastPlay = Date.now() - 1000000000
 
   //! PLACEHOLDERS END
 
   moment.locale('pl')
+
+  const getLastPlay = (time) => moment(time).fromNow().toUpperCase()
 
   return (
     <Wrapper>
@@ -40,7 +45,9 @@ const ProgressInfo = () => {
           </div>
           <div className='last-game'>
             <span className='text'>OSTATNIA GRA</span>
-            <span className='subtext'>{moment(lastPlay).fromNow().toUpperCase()}</span>
+            <span className='subtext'>
+              {lastGameInfo && lastGameInfo.gDate ? getLastPlay(lastGameInfo.gDate) : 'N/A'}
+            </span>
           </div>
         </Stats>
       </LevelStats>

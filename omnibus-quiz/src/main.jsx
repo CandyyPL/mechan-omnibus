@@ -4,6 +4,7 @@ import GlobalStyle from '@/assets/styles/GlobalStyle'
 import App from '@/pages/App/App'
 import WebFont from 'webfontloader'
 import AuthProvider from '@/providers/AuthProvider'
+import AllProviders from '@/providers/AllProviders'
 
 WebFont.load({
   google: {
@@ -14,9 +15,8 @@ WebFont.load({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <AuthProvider>
+    <AllProviders>
       <App />
-    </AuthProvider>
+    </AllProviders>
   </React.StrictMode>
 )

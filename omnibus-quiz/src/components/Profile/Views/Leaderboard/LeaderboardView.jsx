@@ -9,7 +9,7 @@ const ranking = [
     ranking: 1,
     score: 12584,
     favSubject: 'Programowanie',
-    uid: 'G1wWbKEbMzYDdyT905BucSQ5ZA03',
+    uid: 'L65z2nlM8jbv2AKvBCumnF2PzjI3',
   },
   {
     id: 1,

@@ -5,6 +5,7 @@ import Home from '@/pages/Home/Home'
 import Login from '@/pages/Login/Login'
 import PrivateRoute from '@/helpers/PrivateRoute'
 import Profile from '@/pages/Profile/Profile'
+import QuizPage from '@/pages/Quiz/QuizPage'
 
 const App = () => {
   return (
@@ -18,6 +19,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/play'
+            element={
+              <PrivateRoute>
+                <QuizPage />
               </PrivateRoute>
             }
           />

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FormContainer, FormWrapper, LoginInfo, Wrapper } from '@/pages/Login/Login.styles'
 import Topbar from '@/components/Topbar/Topbar'
 import { auth } from '@/auth/firebase'
@@ -33,9 +33,9 @@ const Login = () => {
 
   const { handleOpenModal, handleCloseModal, isModalOpen } = useModal()
 
-  // useEffect(() => {
-  //   if (dbSnap === null || dbSnap.username === undefined) handleOpenModal()
-  // }, [dbSnap])
+  useEffect(() => {
+    if (dbSnap === null || dbSnap.username === undefined) handleOpenModal()
+  }, [dbSnap])
 
   const handleSetUsername = async (data) => {
     await addData({ username: data.username })

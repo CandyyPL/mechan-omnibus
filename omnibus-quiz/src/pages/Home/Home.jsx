@@ -6,6 +6,8 @@ import JoinPart from '@/components/Home/JoinPart/JoinPart'
 import Footer from '@/components/Home/Footer/Footer'
 
 const Home = () => {
+  document.title = 'Omnibus - Strona Główna'
+
   return (
     <Wrapper>
       <Topbar />

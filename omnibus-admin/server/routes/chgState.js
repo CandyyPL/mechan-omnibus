@@ -15,7 +15,7 @@ export default async (req, res) => {
       return
     }
 
-    await User.updateOne({ signId: signId }, { state: newState })
+    await User.updateOne({ id: signId }, { state: newState })
     res.status(200).send({ express: 'State changed' })
     return
   }

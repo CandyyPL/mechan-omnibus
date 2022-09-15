@@ -20,8 +20,10 @@ import omnibusRankImg from '@/assets/bus-big.png'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
 import useModal from '@/hooks/useModal'
 import ModalBackground from '@/components/Modal/ModalBackground'
-import Modal from '@/components/Modal/Modal'
 import { GameContext } from '@/providers/GameProvider'
+import { useNavigate } from 'react-router-dom'
+import { StyledModal } from '@/components/Profile/Views/DashboardView/DashboardModal.styles'
+import ModalGamesWrapper from '@/components/Profile/Views/DashboardView/ModalGamesWrapper'
 
 const ranks = {
   UNRANKED: {
@@ -61,7 +63,7 @@ const ranks = {
 const DashboardView = () => {
   document.title = 'Dashboard'
 
-  const { testGame, lastGameInfo } = useContext(GameContext)
+  const { initGame, lastGameInfo } = useContext(GameContext)
 
   const [currentRank, setCurrentRank] = useState(null)
   const [currentRankImg, setCurrentRankImg] = useState(null)
@@ -77,16 +79,46 @@ const DashboardView = () => {
     setCurrentRankImg(img)
   }, [])
 
-  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
+  const {
+    isModalOpen: isHistoryModalOpen,
+    handleOpenModal: handleOpenHistoryModal,
+    handleCloseModal: handleCloseHistoryModal,
+  } = useModal()
+
+  const {
+    isModalOpen: isGameModalOpen,
+    handleOpenModal: handleOpenGameModal,
+    handleCloseModal: handleCloseGameModal,
+  } = useModal()
+
+  const navigate = useNavigate()
+
+  const startGame = () => {
+    initGame()
+    navigate('/play')
+  }
 
   return (
     <Wrapper>
-      {isModalOpen && (
+      {isHistoryModalOpen && (
         <ModalBackground>
-          <Modal>
-            <h1>HISTORIA GIER</h1>
-            <button onClick={handleCloseModal}>X</button>
-          </Modal>
+          <StyledModal>
+            <h2>HISTORIA GIER</h2>
+            <button className='close-button' onClick={handleCloseHistoryModal}>
+              X
+            </button>
+          </StyledModal>
+        </ModalBackground>
+      )}
+      {isGameModalOpen && (
+        <ModalBackground>
+          <StyledModal>
+            <h2>Wybierz tryb gry i kategorię pytań</h2>
+            <button className='close-button' onClick={handleCloseGameModal}>
+              X
+            </button>
+            <ModalGamesWrapper />
+          </StyledModal>
         </ModalBackground>
       )}
       <UserStats>
@@ -105,10 +137,10 @@ const DashboardView = () => {
       <GamesInfo>
         <GameModes>
           <GameButtons>
-            <button className='play' onClick={testGame}>
+            <button className='play' onClick={handleOpenGameModal}>
               GRAJ
             </button>
-            <button className='history' onClick={handleOpenModal}>
+            <button className='history' onClick={handleOpenHistoryModal}>
               HISTORIA GIER
             </button>
           </GameButtons>

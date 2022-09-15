@@ -1,7 +1,7 @@
 import { getData } from '@/auth/dbMethods'
 import Loading from '@/pages/Loading/Loading'
 import { AuthContext } from '@/providers/AuthProvider'
-import { useQuery } from 'graphql-hooks'
+import { useQuery, useManualQuery } from 'graphql-hooks'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useContext } from 'react'
@@ -27,40 +27,67 @@ const GameProvider = ({ children }) => {
   const [gameInfo, setGameInfo] = useState(gameInitialState)
   const [lastGameInfo, setLastGameInfo] = useState(gameInitialState)
 
+  const [chosenCategory, setChosenCategory] = useState('')
   const [questions, setQuestions] = useState([])
+  const [questionGroups, setQuestionGroups] = useState([])
 
   const [gameError, setGameError] = useState(null)
 
-  const questionsQuery = `query Questions {
-    allQuestiongroups(filter: { group: { eq: "math" } }) {
-      group
-      questions {
-        id
-        questiontitle
-        questionanswers {
-          id
-          answer
-        }
-      }
-    }
-  }`
+  const constructQuery = (category = null) => {
+    const filter = category === null ? '' : `(filter: { group: { eq: "${category}" } })`
 
-  const { loading, error, data } = useQuery(questionsQuery)
+    return `
+      query Questions {
+        allQuestiongroups${filter} {
+          group
+          questions {
+            id
+            questiontitle
+            questionanswers {
+              id
+              answer
+            }
+          }
+        }
+      }`
+  }
+
+  const groupsQuery = `
+    query Questions {
+      allQuestiongroups {
+        group
+      }
+    }`
+
+  const [getQuestions, { loading: questionsLoading, data: questionsData }] = useManualQuery(
+    constructQuery(chosenCategory)
+  )
+
+  const { loading: groupsLoading, data: groupsData } = useQuery(groupsQuery)
 
   useEffect(() => {
-    if (data) {
-      setQuestions(data.allQuestiongroups[0].questions)
+    if (questionsData) {
+      setQuestions(questionsData.allQuestiongroups[0].questions)
       setGameLoading(false)
     }
-  }, [data])
+  }, [questionsData])
+
+  useEffect(() => {
+    if (groupsData) {
+      let groupsArr = []
+      // console.log(groupsData)
+      groupsData.allQuestiongroups.forEach((obj) => groupsArr.push(obj.group))
+      groupsArr.sort()
+      setQuestionGroups(groupsArr)
+    }
+  }, [groupsData])
 
   // useEffect(() => {
   //   getData(currentUser.uid).then((snap) => {})
   // })
 
   const initGame = () => {
-    setGid(v4())
-    setGDate(Date.now())
+    setGameInfo({ ...gameInfo, gid: v4(), gDate: Date.now() })
   }
 
   const provide = {
@@ -69,6 +96,9 @@ const GameProvider = ({ children }) => {
     setGameInfo,
     questions,
     setQuestions,
+    getQuestions,
+    setChosenCategory,
+    questionGroups,
     gameError,
     setGameError,
     lastGameInfo,
@@ -76,7 +106,7 @@ const GameProvider = ({ children }) => {
 
   return (
     <GameContext.Provider value={provide}>
-      {gameLoading || loading ? <Loading /> : children}
+      {gameLoading || questionsLoading || groupsLoading ? <Loading /> : children}
     </GameContext.Provider>
   )
 }

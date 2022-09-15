@@ -1,4 +1,4 @@
-import registration from '../db/models/Registration.js'
+import registration from '../db/models/User.js'
 import { v4 } from 'uuid'
 
 export default async (req, res) => {
@@ -13,9 +13,10 @@ export default async (req, res) => {
     email,
     class: classNum,
     profile,
-    date: Date.now(),
+    state: 'blocked',
+    regDate: Date.now(),
   })
 
   await reg.save()
-  res.status(200).send({ express: 'user signed' })
+  res.status(200).send({ express: 'User signed' })
 }

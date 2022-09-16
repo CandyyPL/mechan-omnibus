@@ -6,15 +6,15 @@ import tireImg from '@/assets/tire.png'
 import { AuthContext } from '@/providers/AuthProvider'
 
 const ProfileTopbar = () => {
-  const { dbSnap } = useContext(AuthContext)
+  const { mongoUser } = useContext(AuthContext)
 
   return (
     <Wrapper>
       <div className='left'>
-        {dbSnap && dbSnap.name && dbSnap.username && (
+        {mongoUser && mongoUser.name && (
           <span>
-            Zalogowano jako <span style={{ fontWeight: 'bold' }}>{dbSnap.name}</span> (
-            {dbSnap.username})
+            Zalogowano jako <span style={{ fontWeight: 'bold' }}>{mongoUser.name}</span>
+            {mongoUser && mongoUser.username && `(${mongoUser.username})`}
           </span>
         )}
       </div>

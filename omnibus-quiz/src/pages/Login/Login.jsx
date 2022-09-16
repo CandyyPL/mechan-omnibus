@@ -15,10 +15,11 @@ import useModal from '@/hooks/useModal'
 import { AuthContext } from '@/providers/AuthProvider'
 import { useForm } from 'react-hook-form'
 import Modal from '@/components/Modal/Modal'
-import { addData } from '@/auth/dbMethods'
 import ModalBackground from '@/components/Modal/ModalBackground'
 
 const Login = () => {
+  document.title = 'Omnibus - Login'
+
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
@@ -27,26 +28,13 @@ const Login = () => {
     return res.data.state
   }
 
-  const { dbSnap } = useContext(AuthContext)
+  const { mongoUser } = useContext(AuthContext)
 
   const { register, handleSubmit } = useForm()
-
-  const { handleOpenModal, handleCloseModal, isModalOpen } = useModal()
-
-  useEffect(() => {
-    if (dbSnap === null || dbSnap.username === undefined) handleOpenModal()
-  }, [dbSnap])
-
-  const handleSetUsername = async (data) => {
-    await addData({ username: data.username })
-    handleCloseModal()
-    navigate('/')
-  }
 
   const navigate = useNavigate()
 
   const loginButtonRef = useRef(null)
-  const setUsernameButtonRef = useRef(null)
 
   const handleSignIn = async (data) => {
     const email = data.email
@@ -84,9 +72,7 @@ const Login = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         setSuccess('Pomyślnie zarejestrowano!')
-        setTimeout(() => {
-          handleOpenModal()
-        }, 1000)
+        navigate('/')
       })
       .catch((err) => {
         if (err.code.includes('email-already-in-use')) {
@@ -95,7 +81,7 @@ const Login = () => {
               setSuccess('Pomyślnie zalogowano! Za chwilę nastąpi przekierowanie.')
               setTimeout(() => {
                 navigate('/')
-              }, 500)
+              }, 250)
             })
             .catch((err) => console.log(err))
         }
@@ -104,19 +90,6 @@ const Login = () => {
 
   return (
     <Wrapper>
-      {isModalOpen && (
-        <ModalBackground>
-          <Modal>
-            <span>Ustaw nową nazwę użytkownika</span>
-            <form onSubmit={handleSubmit(handleSetUsername)}>
-              <input type='text' placeholder='Nowa nazwa' {...register('username')} />
-              <button type='submit' ref={setUsernameButtonRef}>
-                ZATWIERDŹ
-              </button>
-            </form>
-          </Modal>
-        </ModalBackground>
-      )}
       <Topbar />
       <FormContainer>
         <FormWrapper onSubmit={handleSubmit(handleSignIn)}>

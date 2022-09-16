@@ -7,31 +7,17 @@ import { AuthContext } from '@/providers/AuthProvider'
 import useModal from '@/hooks/useModal'
 import ModalBackground from '@/components/Modal/ModalBackground'
 import { StyledModal } from '@/components/Profile/RankingItem/RankingItemModal.styles'
-import { getData } from '@/auth/dbMethods'
 
 const RankingItem = ({ item }) => {
-  const { currentUser, dbSnap } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
 
-  const [userDbSnap, setUserDbSnap] = useState(null)
   const [userMedal, setUserMedal] = useState(null)
   const [itemStyle, setItemStyle] = useState(null)
 
   useEffect(() => {
-    ;(async () => {
-      try {
-        getData(item.uid).then((snap) => {
-          setUserDbSnap(snap)
-        })
-      } catch (err) {
-        setUserDbSnap(null)
-      }
-    })()
-  }, [])
-
-  useEffect(() => {
     if (item.ranking === 1) return setUserMedal(goldMedalImg)
-    else if (item.ranking === 2) return setUserMedal(silverMedalImg)
-    else if (item.ranking === 3) return setUserMedal(bronzeMedalImg)
+    if (item.ranking === 2) return setUserMedal(silverMedalImg)
+    if (item.ranking === 3) return setUserMedal(bronzeMedalImg)
   }, [])
 
   useEffect(() => {
@@ -53,20 +39,18 @@ const RankingItem = ({ item }) => {
         </ModalBackground>
       )}
       <UserData>
-        {item.ranking < 4 ? (
+        {item.ranking < 4 && item.ranking !== 0 ? (
           <span className='rank'>
             <img src={userMedal} alt='medal' />
           </span>
         ) : (
           <span className='rank'>{item.ranking}.</span>
         )}
-        <span className='name'>
-          {item.name}&nbsp;{userDbSnap && userDbSnap.username && `(${userDbSnap.username})`}
-        </span>
+        <span className='name'>{item.name}</span>
       </UserData>
       <div className='right'>
         <UserStat bgColor='#52d1dc'>{item.favSubject}</UserStat>
-        <UserStat bgColor='#f3a712'>{item.score}</UserStat>
+        <UserStat bgColor='#f3a712'>{item.totalScore}</UserStat>
       </div>
     </Wrapper>
   )

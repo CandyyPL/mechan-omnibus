@@ -9,61 +9,21 @@ import {
   UserStats,
   Wrapper,
 } from '@/components/Profile/Views/DashboardView/DashboardView.styles'
-import unrankedImg from '@/assets/ranks/unranked.png'
-import copperRankImg from '@/assets/ranks/copper.png'
-import silverRankImg from '@/assets/ranks/silver.png'
-import goldRankImg from '@/assets/ranks/gold.png'
-import titaniumRankImg from '@/assets/ranks/titanium.png'
-import uraniumRankImg from '@/assets/ranks/uranium.png'
-import platinumRankImg from '@/assets/ranks/platinum.png'
-import omnibusRankImg from '@/assets/bus-big.png'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
+import { ranks } from '@/helpers/consts'
 import useModal from '@/hooks/useModal'
 import ModalBackground from '@/components/Modal/ModalBackground'
 import { GameContext } from '@/providers/GameProvider'
 import { useNavigate } from 'react-router-dom'
 import { StyledModal } from '@/components/Profile/Views/DashboardView/DashboardModal.styles'
 import ModalGamesWrapper from '@/components/Profile/Views/DashboardView/ModalGamesWrapper'
-
-const ranks = {
-  UNRANKED: {
-    name: 'unranked',
-    img: unrankedImg,
-  },
-  COPPER: {
-    name: 'Miedź',
-    img: copperRankImg,
-  },
-  SILVER: {
-    name: 'Srebro',
-    img: silverRankImg,
-  },
-  GOLD: {
-    name: 'Złoto',
-    img: goldRankImg,
-  },
-  TITANIUM: {
-    name: 'Tytan',
-    img: titaniumRankImg,
-  },
-  URANIUM: {
-    name: 'Uran',
-    img: uraniumRankImg,
-  },
-  PLATINUM: {
-    name: 'Platyna',
-    img: platinumRankImg,
-  },
-  OMNIBUS: {
-    name: 'Omnibus',
-    img: omnibusRankImg,
-  },
-}
+import { AuthContext } from '@/providers/AuthProvider'
 
 const DashboardView = () => {
   document.title = 'Dashboard'
 
   const { initGame, lastGameInfo } = useContext(GameContext)
+  const { currentUser, mongoUser, getmongoUser } = useContext(AuthContext)
 
   const [currentRank, setCurrentRank] = useState(null)
   const [currentRankImg, setCurrentRankImg] = useState(null)
@@ -148,11 +108,17 @@ const DashboardView = () => {
             <span className='title'>OSTATNIA GRA</span>
             <div className='stats'>
               <div className='stats-inner subject'>
-                <span className='subtext'>PROGRAMOWANIE</span>
+                <span className='subtext'>
+                  {lastGameInfo && lastGameInfo.subject
+                    ? lastGameInfo.subject.toUpperCase()
+                    : 'N/A'}
+                </span>
                 <span className='text'>PRZEDMIOT</span>
               </div>
               <div className='stats-inner subject'>
-                <span className='subtext'>9 na 10</span>
+                <span className='subtext'>
+                  {lastGameInfo && lastGameInfo.answers ? `${lastGameInfo.answers} na 10` : 'N/A'}
+                </span>
                 <span className='text'>POPRAWNE ODPOWIEDZI</span>
               </div>
               <div className='stats-inner score'>

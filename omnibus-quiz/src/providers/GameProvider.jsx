@@ -1,4 +1,4 @@
-import { getData } from '@/auth/dbMethods'
+import { getData } from '@/db/dbMethods'
 import Loading from '@/pages/Loading/Loading'
 import { AuthContext } from '@/providers/AuthProvider'
 import { useQuery, useManualQuery } from 'graphql-hooks'
@@ -25,7 +25,7 @@ const GameProvider = ({ children }) => {
   const [gameLoading, setGameLoading] = useState(false)
 
   const [gameInfo, setGameInfo] = useState(gameInitialState)
-  const [lastGameInfo, setLastGameInfo] = useState(gameInitialState)
+  const [lastGameInfo, setLastGameInfo] = useState({})
 
   const [chosenCategory, setChosenCategory] = useState('')
   const [questions, setQuestions] = useState([])
@@ -75,16 +75,18 @@ const GameProvider = ({ children }) => {
   useEffect(() => {
     if (groupsData) {
       let groupsArr = []
-      // console.log(groupsData)
       groupsData.allQuestiongroups.forEach((obj) => groupsArr.push(obj.group))
       groupsArr.sort()
       setQuestionGroups(groupsArr)
     }
   }, [groupsData])
 
-  // useEffect(() => {
-  //   getData(currentUser.uid).then((snap) => {})
-  // })
+  useEffect(() => {
+    getData(currentUser.uid).then((res) => {
+      const lastGame = res.data.user.lastGame
+      setLastGameInfo(lastGame)
+    })
+  }, [])
 
   const initGame = () => {
     setGameInfo({ ...gameInfo, gid: v4(), gDate: Date.now() })

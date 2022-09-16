@@ -1,39 +1,35 @@
 import React, { createContext, useState } from 'react'
 import { auth } from '@/auth/firebase'
-import { addData, getData } from '@/auth/dbMethods'
-import axios from 'axios'
 import Loading from '@/pages/Loading/Loading'
+import { useEffect } from 'react'
+import { getData, updateData } from '@/db/dbMethods'
 
 export const AuthContext = createContext({})
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
-  const [dbSnap, setDbSnap] = useState(null)
+  const [mongoUser, setMongoUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      setCurrentUser(user)
-      getData(user.uid).then((data) => {
-        setDbSnap(data)
-      })
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setCurrentUser(user)
 
-      if (dbSnap !== null && dbSnap.name === undefined) {
-        axios.get('http://localhost:5000/getall').then((res) => {
-          const foundUser = res.data.users.find((item) => item.email === user.email)
-          addData({ name: foundUser.name })
-        })
+        updateData(user.email, null, { uid: user.uid }).then(() => {})
+
+        getData(user.uid).then((res) => setMongoUser(res.data.user))
+
+        setLoading(false)
+      } else {
+        setMongoUser(null)
+        setCurrentUser(null)
+        setLoading(false)
       }
+    })
+  }, [])
 
-      setLoading(false)
-    } else {
-      setDbSnap(null)
-      setCurrentUser(null)
-      setLoading(false)
-    }
-  })
-
-  const provide = { currentUser, dbSnap }
+  const provide = { currentUser, mongoUser }
 
   return (
     <AuthContext.Provider value={provide}>{loading ? <Loading /> : children}</AuthContext.Provider>

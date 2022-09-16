@@ -7,6 +7,7 @@ import deleteOne from './routes/deleteOne.js'
 import chgState from './routes/chgState.js'
 import chkState from './routes/chkState.js'
 import updateOne from './routes/updateOne.js'
+import getOne from './routes/getOne.js'
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.post('/deleteone', deleteOne)
 app.post('/chgstate', chgState)
 app.post('/chkstate', chkState)
 app.post('/updateone', updateOne)
+app.post('/getone', getOne)
 
 app.get('/getall', getAll)
 

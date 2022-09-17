@@ -15,14 +15,13 @@ const gameInitialState = {
   gDate: 0,
   category: '',
   correctAnswers: 0,
-  questionsDone: 0,
   score: 0,
 }
 
 const GameProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext)
 
-  const [gameLoading, setGameLoading] = useState(false)
+  // const [gameLoading, setGameLoading] = useState(false)
 
   const [gameInfo, setGameInfo] = useState(gameInitialState)
   const [lastGameInfo, setLastGameInfo] = useState({})
@@ -86,8 +85,17 @@ const GameProvider = ({ children }) => {
     }
   }, [])
 
+  useEffect(() => {
+    setLastGameInfo({
+      subject: gameInfo.category,
+      answers: gameInfo.correctAnswers,
+      score: gameInfo.score,
+    })
+  }, [gameInfo])
+
   const initGame = () => {
-    setGameInfo({ ...gameInfo, gid: v4(), gDate: Date.now() })
+    const newInfo = { gid: v4(), gDate: Date.now(), category: chosenCategory }
+    setGameInfo({ ...gameInfo, ...newInfo })
   }
 
   const provide = {
@@ -105,11 +113,12 @@ const GameProvider = ({ children }) => {
     gameError,
     setGameError,
     lastGameInfo,
+    setLastGameInfo,
   }
 
   return (
     <GameContext.Provider value={provide}>
-      {gameLoading || questionsLoading || groupsLoading ? <Loading /> : children}
+      {questionsLoading || groupsLoading ? <Loading /> : children}
     </GameContext.Provider>
   )
 }

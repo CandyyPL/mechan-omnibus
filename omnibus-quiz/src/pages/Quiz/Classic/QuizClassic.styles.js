@@ -24,6 +24,19 @@ export const QuizTopbar = styled.div`
     font-size: 28px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img:first-of-type {
+      transform: scaleX(-1);
+    }
+
+    img {
+      height: 50px;
+      margin-inline: 10px;
+    }
   }
 `
 
@@ -52,7 +65,7 @@ export const QuestionsAnswers = styled.div`
   justify-content: space-evenly;
   align-items: center;
 
-  .answer {
+  button.answer {
     width: 300px;
     height: 150px;
 
@@ -69,8 +82,12 @@ export const QuestionsAnswers = styled.div`
 
     cursor: pointer;
 
-    &:hover {
+    &:not(:disabled):hover {
       border: 5px solid #111;
+    }
+
+    &:disabled:hover {
+      cursor: default;
     }
   }
 `

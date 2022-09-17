@@ -1,20 +1,29 @@
 import Loading from '@/pages/Loading/Loading'
+import { GameContext } from '@/providers/GameProvider'
+import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useContext } from 'react'
+import busImg from '@/assets/bus-small.png'
 import {
   QuestionsAnswers,
   QuestionWrapper,
   QuizTopbar,
   Wrapper,
 } from '@/pages/Quiz/Classic/QuizClassic.styles'
-import { GameContext } from '@/providers/GameProvider'
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const QuizClassic = () => {
-  const { chosenCategory, questions } = useContext(GameContext)
+  const { chosenCategory, questions, setGameInfo, gameInfo, setLastGameInfo } =
+    useContext(GameContext)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [qid, setQid] = useState(0)
+
+  const [answers, setAnswers] = useState([])
+
+  const [answerDisabled, setAnswerDisabled] = useState(false)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const sessionQuestion = sessionStorage.getItem('currentQuestion')
@@ -27,9 +36,38 @@ const QuizClassic = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (qid == questions.length) {
+      setGameInfo((prev) => {
+        const correct = answers.filter((val) => val === true).length
+        const newInfo = { correctAnswers: correct }
+        return { ...prev, ...newInfo }
+      })
+
+      navigate('/')
+    } else {
+      setGameInfo((prev) => {
+        const newScore = gameInfo.score + 500 * qid
+        const newInfo = { score: newScore }
+        return { ...prev, ...newInfo }
+      })
+
+      setCurrentQuestion(questions[qid])
+      sessionStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
+      setAnswerDisabled(false)
+    }
+  }, [qid])
+
   const handleMakeAnswer = (id) => {
-    if (id === currentQuestion.correctanswerid) console.log('Success')
-    else console.log('Fail')
+    if (id === currentQuestion.correctanswerid) {
+      setAnswers([...answers, true])
+      setQid((prev) => prev + 1)
+    } else {
+      setAnswers([...answers, false])
+      setQid((prev) => prev + 1)
+    }
+
+    setAnswerDisabled(true)
   }
 
   return (
@@ -38,6 +76,11 @@ const QuizClassic = () => {
         <Wrapper>
           <QuizTopbar>
             <span>Klasyczny</span>
+            <span>
+              <img src={busImg} alt='bus' />
+              OMNIBUS
+              <img src={busImg} alt='bus' />
+            </span>
             <span>{chosenCategory}</span>
           </QuizTopbar>
           <QuestionWrapper>
@@ -47,9 +90,13 @@ const QuizClassic = () => {
             <QuestionsAnswers>
               {currentQuestion.questionanswers &&
                 currentQuestion.questionanswers.map((ans, idx) => (
-                  <div className='answer' key={idx} onClick={() => handleMakeAnswer(ans.answerid)}>
+                  <button
+                    className='answer'
+                    disabled={answerDisabled}
+                    key={idx}
+                    onClick={(e) => handleMakeAnswer(ans.answerid)}>
                     {ans.answer}
-                  </div>
+                  </button>
                 ))}
             </QuestionsAnswers>
           </QuestionWrapper>

@@ -5,6 +5,7 @@ import UnAuthApp from '@/pages/UnAuthApp/UnAuthApp'
 import AuthApp from '@/pages/AuthApp/AuthApp'
 import AuthProvider from '@/providers/AuthProvider'
 import { Wrapper } from '@/pages/App/App.styles'
+import SearchProvider from '@/providers/SearchProvider'
 
 const App = () => {
   return (
@@ -12,7 +13,9 @@ const App = () => {
       <Wrapper>
         <AuthProvider>
           <PrivateRoute unauth={<UnAuthApp />}>
-            <AuthApp />
+            <SearchProvider>
+              <AuthApp />
+            </SearchProvider>
           </PrivateRoute>
         </AuthProvider>
       </Wrapper>

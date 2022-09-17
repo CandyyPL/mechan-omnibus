@@ -82,10 +82,12 @@ const GameProvider = ({ children }) => {
   }, [groupsData])
 
   useEffect(() => {
-    getData(currentUser.uid).then((res) => {
-      const lastGame = res.data.user.lastGame
-      setLastGameInfo(lastGame)
-    })
+    if (currentUser) {
+      getData(currentUser.uid).then((res) => {
+        const lastGame = res.data.user.lastGame
+        setLastGameInfo(lastGame)
+      })
+    }
   }, [])
 
   const initGame = () => {

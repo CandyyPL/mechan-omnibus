@@ -16,14 +16,7 @@ const ProgressInfo = () => {
   const { lastGameInfo } = useContext(GameContext)
   const { mongoUser } = useContext(AuthContext)
 
-  //! PLACEHOLDERS BEGIN
-
-  const level = 1
-
-  const highestScore = 1337
-  const favSubject = 'PROGRAMOWANIE'
-
-  //! PLACEHOLDERS END
+  const level = 1 //! CHANGE LEVEL SOURCE TO MONGOUSER
 
   moment.locale('pl')
 

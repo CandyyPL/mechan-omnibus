@@ -3,6 +3,7 @@ import AuthProvider from '@/providers/AuthProvider'
 import GameProvider from '@/providers/GameProvider'
 import CmsProvider from '@/providers/CmsProvider'
 import React from 'react'
+import GamemodeProvider from '@/providers/GamemodeProvider'
 
 const AllProviders = ({ children }) => {
   return (
@@ -10,7 +11,9 @@ const AllProviders = ({ children }) => {
       <GlobalStyle />
       <AuthProvider>
         <CmsProvider>
-          <GameProvider>{children}</GameProvider>
+          <GameProvider>
+            <GamemodeProvider>{children}</GamemodeProvider>
+          </GameProvider>
         </CmsProvider>
       </AuthProvider>
     </>

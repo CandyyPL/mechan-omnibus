@@ -1,6 +1,6 @@
 import React from 'react'
 import { views } from '@/pages/Profile/Profile'
-import DashboardView from '@/components/Profile/Views/DashboardView/DashboardView'
+import DashboardView from '@/components/Profile/Views/DashboardView/DashboardView/DashboardView'
 import LeaderboardView from '@/components/Profile/Views/Leaderboard/LeaderboardView'
 import OptionsView from '@/components/Profile/Views/Options/OptionsView'
 

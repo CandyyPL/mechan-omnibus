@@ -1,27 +1,22 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   GameButtons,
   GameModes,
   GamesInfo,
   UserStats,
   Wrapper,
-} from '@/components/Profile/Views/DashboardView/DashboardView.styles'
+} from '@/components/Profile/Views/DashboardView/DashboardView/DashboardView.styles'
 import ProgressInfo from '@/components/Profile/ProgressInfo/ProgressInfo'
 import useModal from '@/hooks/useModal'
-import ModalBackground from '@/components/Modal/ModalBackground'
-import { GameContext } from '@/providers/GameProvider'
-import { useNavigate } from 'react-router-dom'
-import { StyledModal } from '@/components/Profile/Views/DashboardView/DashboardModal.styles'
-import ModalGames from '@/components/Profile/ModalGames/ModalGames'
-import { AuthContext } from '@/providers/AuthProvider'
 import RankInfo from '@/components/Profile/RankInfo/RankInfo'
 import LastGameInfo from '@/components/Profile/LastGameInfo/LastGameInfo'
 import Achievements from '@/components/Profile/Achievements/Achievements'
+import GameModal from '@/components/Profile/Views/DashboardView/GameModal/GameModal'
+import HistoryModal from '@/components/Profile/Views/DashboardView/HistoryModal/HistoryModal'
 
 const DashboardView = () => {
   document.title = 'Dashboard'
 
-  const { initGame } = useContext(GameContext)
   // const { currentUser, mongoUser, getmongoUser } = useContext(AuthContext)
 
   const {
@@ -36,36 +31,10 @@ const DashboardView = () => {
     handleCloseModal: handleCloseGameModal,
   } = useModal()
 
-  const navigate = useNavigate()
-
-  const startGame = () => {
-    initGame()
-    navigate('/play')
-  }
-
   return (
     <Wrapper>
-      {isHistoryModalOpen && (
-        <ModalBackground>
-          <StyledModal>
-            <h2>HISTORIA GIER</h2>
-            <button className='close-button' onClick={handleCloseHistoryModal}>
-              X
-            </button>
-          </StyledModal>
-        </ModalBackground>
-      )}
-      {isGameModalOpen && (
-        <ModalBackground>
-          <StyledModal>
-            <h2>Wybierz tryb gry i kategorię pytań</h2>
-            <button className='close-button' onClick={handleCloseGameModal}>
-              X
-            </button>
-            <ModalGames />
-          </StyledModal>
-        </ModalBackground>
-      )}
+      {isHistoryModalOpen && <HistoryModal closeModal={handleCloseHistoryModal} />}
+      {isGameModalOpen && <GameModal closeModal={handleCloseGameModal} />}
       <UserStats>
         <RankInfo />
         <ProgressInfo />

@@ -36,3 +36,10 @@ export const ranks = {
     img: uraniumRankImg,
   },
 }
+
+export const gameModes = {
+  CLASSIC: 'Klasyczny',
+  ONEVONE: '1 na 1',
+  DRIVER: 'Kierowca',
+  ZEN: 'Zen',
+}

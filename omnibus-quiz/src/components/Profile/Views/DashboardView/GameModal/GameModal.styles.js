@@ -9,6 +9,14 @@ export const StyledModal = styled(ModalWrapper)`
 
   position: relative;
 
+  h2 {
+    margin: 0;
+  }
+
+  span.error {
+    color: #df2935;
+  }
+
   .close-button {
     position: absolute;
 
@@ -40,5 +48,21 @@ export const StyledModal = styled(ModalWrapper)`
       background-color: #111;
       color: #eee;
     }
+  }
+
+  button.play {
+    width: 225px;
+    height: 75px;
+
+    background-color: #f3a712;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 32px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+
+    cursor: pointer;
   }
 `

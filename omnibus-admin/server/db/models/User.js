@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const UserSchema = new Schema({
+  id: String,
   uid: String,
   name: String,
   email: String,
@@ -12,6 +13,9 @@ const UserSchema = new Schema({
   favSubject: String,
   totalScore: Number,
   rank: Number,
+  level: Number,
+  exp: Number,
+  neededExp: Number,
   lastGame: {
     date: String,
     score: Number,

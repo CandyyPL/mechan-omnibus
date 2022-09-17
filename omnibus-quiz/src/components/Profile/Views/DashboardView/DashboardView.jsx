@@ -12,7 +12,7 @@ import ModalBackground from '@/components/Modal/ModalBackground'
 import { GameContext } from '@/providers/GameProvider'
 import { useNavigate } from 'react-router-dom'
 import { StyledModal } from '@/components/Profile/Views/DashboardView/DashboardModal.styles'
-import ModalGamesWrapper from '@/components/Profile/Views/DashboardView/ModalGamesWrapper'
+import ModalGames from '@/components/Profile/ModalGames/ModalGames'
 import { AuthContext } from '@/providers/AuthProvider'
 import RankInfo from '@/components/Profile/RankInfo/RankInfo'
 import LastGameInfo from '@/components/Profile/LastGameInfo/LastGameInfo'
@@ -62,7 +62,7 @@ const DashboardView = () => {
             <button className='close-button' onClick={handleCloseGameModal}>
               X
             </button>
-            <ModalGamesWrapper />
+            <ModalGames />
           </StyledModal>
         </ModalBackground>
       )}

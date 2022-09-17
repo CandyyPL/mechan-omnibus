@@ -14,9 +14,10 @@ import { AuthContext } from '@/providers/AuthProvider'
 
 const ProgressInfo = () => {
   const { lastGameInfo } = useContext(GameContext)
-  const { mongoUser } = useContext(AuthContext)
-
-  const level = 1 //! CHANGE LEVEL SOURCE TO MONGOUSER
+  const {
+    mongoUser,
+    mongoUser: { exp, neededExp, totalScore, favSubject },
+  } = useContext(AuthContext)
 
   moment.locale('pl')
 
@@ -24,7 +25,10 @@ const ProgressInfo = () => {
 
   return (
     <Wrapper>
-      <span>Poziom {level}</span>
+      <span>Poziom {mongoUser && mongoUser.level ? mongoUser.level : 'N/A'}</span>
+      <span className='exp'>
+        {mongoUser && exp !== null && neededExp ? `${exp} / ${neededExp} EXP` : `N/A`}
+      </span>
       <LevelStats>
         <LevelBar>
           <LevelFiller progress={41} />
@@ -32,14 +36,12 @@ const ProgressInfo = () => {
         <Stats>
           <div className='highest-score'>
             <span className='text'>CAŁKOWITY WYNIK</span>
-            <span className='subtext'>
-              {mongoUser && mongoUser.totalScore !== 0 ? mongoUser.totalScore : 'N/A'}
-            </span>
+            <span className='subtext'>{mongoUser && totalScore !== 0 ? totalScore : 'N/A'}</span>
           </div>
           <div className='fav-subject'>
             <span className='text'>ULUBIONY PRZEDMIOT</span>
             <span className='subtext'>
-              {mongoUser && mongoUser.favSubject ? mongoUser.favSubject.toUpperCase() : 'N/A'}
+              {mongoUser && favSubject ? favSubject.toUpperCase() : 'N/A'}
             </span>
           </div>
           <div className='last-game'>

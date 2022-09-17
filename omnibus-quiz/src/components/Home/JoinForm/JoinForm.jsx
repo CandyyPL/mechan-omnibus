@@ -94,32 +94,20 @@ const JoinForm = () => {
     }
   }
 
-  const handleNameChange = (e) => {
-    setNameVal(e.target.value)
-  }
-
-  const handleEmailChange = (e) => {
-    setEmailVal(e.target.value)
-  }
-
-  const handleProfileChange = (e) => {
-    setProfileVal(e.target.value)
-  }
-
   return (
     <Wrapper onSubmit={handleSignup}>
       <p>Zapisz się</p>
       <FormField
         type='text'
         value={nameVal}
-        onChange={handleNameChange}
+        onChange={(e) => setNameVal(e.target.value)}
         ref={nameRef}
         placeholder='Imię i nazwisko'
       />
       <FormField
         type='text'
         value={emailVal}
-        onChange={handleEmailChange}
+        onChange={(e) => setEmailVal(e.target.value)}
         ref={emailRef}
         placeholder='Adres e-mail'
       />
@@ -141,7 +129,7 @@ const JoinForm = () => {
       <FormField
         type='text'
         value={profileVal}
-        onChange={handleProfileChange}
+        onChange={(e) => setProfileVal(e.target.value)}
         ref={profileRef}
         placeholder='Profil nauki'
       />

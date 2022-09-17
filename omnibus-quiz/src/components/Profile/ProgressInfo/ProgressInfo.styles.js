@@ -14,6 +14,10 @@ export const Wrapper = styled.div`
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
   }
+
+  span.exp {
+    font-size: 20px;
+  }
 `
 
 export const LevelStats = styled.div`

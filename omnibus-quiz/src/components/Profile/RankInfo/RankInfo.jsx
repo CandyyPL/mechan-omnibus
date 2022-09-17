@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Wrapper } from '@/components/Profile/RankInfo/RankInfo.styles'
 import { ranks } from '@/helpers/consts'
+import { useContext } from 'react'
+import { AuthContext } from '@/providers/AuthProvider'
 
 const RankInfo = () => {
   const [currentRank, setCurrentRank] = useState(null)
   const [currentRankImg, setCurrentRankImg] = useState(null)
-
-  const rank = 3 //! PLACEHOLDER
+  const {
+    mongoUser: { rank },
+  } = useContext(AuthContext)
 
   useEffect(() => {
     const ranksArr = Object.entries(ranks)

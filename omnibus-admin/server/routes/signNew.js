@@ -1,4 +1,5 @@
 import registration from '../db/models/User.js'
+import { v4 } from 'uuid'
 
 export default async (req, res) => {
   const name = req.body.name
@@ -7,6 +8,7 @@ export default async (req, res) => {
   const profile = req.body.profile
 
   const reg = new registration({
+    id: v4(),
     uid: 'N/A',
     name,
     email,
@@ -17,6 +19,9 @@ export default async (req, res) => {
     favSubject: 'N/A',
     totalScore: 0,
     rank: 0,
+    level: 1,
+    exp: 0,
+    neededExp: 250,
     lastGame: {
       date: 'N/A',
       score: 0,

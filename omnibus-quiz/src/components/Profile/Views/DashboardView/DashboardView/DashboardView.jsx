@@ -13,6 +13,7 @@ import LastGameInfo from '@/components/Profile/LastGameInfo/LastGameInfo'
 import Achievements from '@/components/Profile/Achievements/Achievements'
 import GameModal from '@/components/Profile/Views/DashboardView/GameModal/GameModal'
 import HistoryModal from '@/components/Profile/Views/DashboardView/HistoryModal/HistoryModal'
+import { useEffect } from 'react'
 
 const DashboardView = () => {
   document.title = 'Dashboard'
@@ -30,6 +31,10 @@ const DashboardView = () => {
     handleOpenModal: handleOpenGameModal,
     handleCloseModal: handleCloseGameModal,
   } = useModal()
+
+  useEffect(() => {
+    sessionStorage.clear()
+  }, [])
 
   return (
     <Wrapper>

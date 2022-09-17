@@ -1,20 +1,30 @@
 import ModalBackground from '@/components/Modal/ModalBackground'
 import ModalGames from '@/components/Profile/ModalGames/ModalGames/ModalGames'
 import { StyledModal } from '@/components/Profile/Views/DashboardView/GameModal/GameModal.styles'
-import { GamemodeContext } from '@/providers/GamemodeProvider'
+import { GameContext } from '@/providers/GameProvider'
 import React, { useState } from 'react'
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const GameModal = ({ closeModal }) => {
-  const { chosenGm, chosenCg } = useContext(GamemodeContext)
+  const { chosenGamemode, chosenCategory, getQuestions, setQuestions, initGame } =
+    useContext(GameContext)
 
   const [error, setError] = useState('')
 
+  const navigate = useNavigate()
+
   const handleStartGame = () => {
-    if (chosenGm === null || chosenCg === null) {
+    if (chosenGamemode === null || chosenCategory === null) {
       setError('Nie wybrałeś trybu lub kategorii!')
       return
     }
+
+    sessionStorage.setItem('gamemode', chosenGamemode)
+    sessionStorage.setItem('category', chosenCategory)
+    getQuestions().then((res) => setQuestions(res.data.allQuestiongroups[0].questions))
+    initGame()
+    navigate('/play')
   }
 
   return (

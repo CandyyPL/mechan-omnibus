@@ -1,28 +1,28 @@
 import { Wrapper } from '@/components/Profile/ModalGames/GameMode/GameMode.styles'
-import { GamemodeContext } from '@/providers/GamemodeProvider'
+import { GameContext } from '@/providers/GameProvider'
 import React, { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
 const GameMode = ({ mode }) => {
-  const { chosenGm, setChosenGm } = useContext(GamemodeContext)
+  const { chosenGamemode, setChosenGamemode } = useContext(GameContext)
   const [style, setStyle] = useState(null)
 
   const handleGmClick = () => {
-    setChosenGm(mode)
+    setChosenGamemode(mode)
   }
 
   useEffect(() => {
-    if (chosenGm === mode) {
+    if (chosenGamemode === mode) {
       setStyle('selected')
     } else {
       setStyle(null)
     }
-  }, [chosenGm])
+  }, [chosenGamemode])
 
   useEffect(() => {
     setStyle(null)
-    setChosenGm(null)
+    setChosenGamemode(null)
   }, [])
 
   return (

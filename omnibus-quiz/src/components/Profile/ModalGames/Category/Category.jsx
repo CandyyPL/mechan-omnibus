@@ -1,26 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Wrapper } from '@/components/Profile/ModalGames/Category/Category.styles'
-import { GamemodeContext } from '@/providers/GamemodeProvider'
+import { GameContext } from '@/providers/GameProvider'
 
 const Category = ({ group }) => {
-  const { chosenCg, setChosenCg } = useContext(GamemodeContext)
+  const { chosenCategory, setChosenCategory } = useContext(GameContext)
   const [style, setStyle] = useState(null)
 
   const handleCatClick = () => {
-    setChosenCg(group)
+    setChosenCategory(group)
   }
 
   useEffect(() => {
-    if (chosenCg === group) {
+    if (chosenCategory === group) {
       setStyle('selected')
     } else {
       setStyle(null)
     }
-  }, [chosenCg])
+  }, [chosenCategory])
 
   useEffect(() => {
     setStyle(null)
-    setChosenCg(null)
+    setChosenCategory(null)
   }, [])
 
   return (

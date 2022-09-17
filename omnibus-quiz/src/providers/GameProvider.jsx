@@ -27,7 +27,8 @@ const GameProvider = ({ children }) => {
   const [gameInfo, setGameInfo] = useState(gameInitialState)
   const [lastGameInfo, setLastGameInfo] = useState({})
 
-  const [chosenCategory, setChosenCategory] = useState('')
+  const [chosenGamemode, setChosenGamemode] = useState(sessionStorage.getItem('gamemode') || '')
+  const [chosenCategory, setChosenCategory] = useState(sessionStorage.getItem('category') || '')
   const [questions, setQuestions] = useState([])
   const [questionGroups, setQuestionGroups] = useState([])
 
@@ -46,7 +47,9 @@ const GameProvider = ({ children }) => {
             questionanswers {
               id
               answer
+              answerid
             }
+            correctanswerid
           }
         }
       }`
@@ -59,18 +62,11 @@ const GameProvider = ({ children }) => {
       }
     }`
 
-  const [getQuestions, { loading: questionsLoading, data: questionsData }] = useManualQuery(
+  const [getQuestions, { loading: questionsLoading }] = useManualQuery(
     constructQuery(chosenCategory)
   )
 
   const { loading: groupsLoading, data: groupsData } = useQuery(groupsQuery)
-
-  useEffect(() => {
-    if (questionsData) {
-      setQuestions(questionsData.allQuestiongroups[0].questions)
-      setGameLoading(false)
-    }
-  }, [questionsData])
 
   useEffect(() => {
     if (groupsData) {
@@ -101,6 +97,9 @@ const GameProvider = ({ children }) => {
     questions,
     setQuestions,
     getQuestions,
+    chosenGamemode,
+    setChosenGamemode,
+    chosenCategory,
     setChosenCategory,
     questionGroups,
     gameError,

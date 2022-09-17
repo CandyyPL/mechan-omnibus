@@ -39,7 +39,7 @@ export const ranks = {
 
 export const gameModes = {
   CLASSIC: 'Klasyczny',
-  ONEVONE: '1 na 1',
+  ONEVONE: 'PvP',
   DRIVER: 'Kierowca',
   ZEN: 'Zen',
 }

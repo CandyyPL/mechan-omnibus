@@ -11,7 +11,7 @@ import { v4 } from 'uuid'
 export const GameContext = createContext({})
 
 const gameInitialState = {
-  gid: 0,
+  gid: '',
   gDate: 0,
   category: '',
   correctAnswers: 0,
@@ -21,13 +21,15 @@ const gameInitialState = {
 const GameProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext)
 
-  // const [gameLoading, setGameLoading] = useState(false)
+  const [gameLoading, setGameLoading] = useState(false)
 
-  const [gameInfo, setGameInfo] = useState(gameInitialState)
+  const [gameInfo, setGameInfo] = useState(
+    JSON.parse(localStorage.getItem('gameInfo')) || gameInitialState
+  )
   const [lastGameInfo, setLastGameInfo] = useState({})
 
-  const [chosenGamemode, setChosenGamemode] = useState(sessionStorage.getItem('gamemode') || '')
-  const [chosenCategory, setChosenCategory] = useState(sessionStorage.getItem('category') || '')
+  const [chosenGamemode, setChosenGamemode] = useState(localStorage.getItem('gamemode') || '')
+  const [chosenCategory, setChosenCategory] = useState(localStorage.getItem('category') || '')
   const [questions, setQuestions] = useState([])
   const [questionGroups, setQuestionGroups] = useState([])
 
@@ -77,11 +79,22 @@ const GameProvider = ({ children }) => {
   }, [groupsData])
 
   useEffect(() => {
+    if (questions === null || questions === []) setGameLoading(true)
+    if (questions !== null && questions.length > 0) setGameLoading(false)
+  }, [questions])
+
+  useEffect(() => {
     if (currentUser) {
       getData(currentUser.uid).then((res) => {
         const lastGame = res.data.user.lastGame
         setLastGameInfo(lastGame)
       })
+    }
+
+    const sessionGameInfo = localStorage.getItem('gameInfo')
+
+    if (sessionGameInfo !== 'undefined' && sessionGameInfo !== null) {
+      setGameInfo(JSON.parse(sessionGameInfo))
     }
   }, [])
 
@@ -91,6 +104,8 @@ const GameProvider = ({ children }) => {
       answers: gameInfo.correctAnswers,
       score: gameInfo.score,
     })
+
+    localStorage.setItem('gameInfo', JSON.stringify(gameInfo))
   }, [gameInfo])
 
   const initGame = () => {
@@ -118,7 +133,7 @@ const GameProvider = ({ children }) => {
 
   return (
     <GameContext.Provider value={provide}>
-      {questionsLoading || groupsLoading ? <Loading /> : children}
+      {gameLoading || questionsLoading || groupsLoading ? <Loading /> : children}
     </GameContext.Provider>
   )
 }

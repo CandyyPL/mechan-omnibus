@@ -46,15 +46,19 @@ const Login = () => {
       return
     }
 
-    if (data.loginPersist === true) {
-      setPersistence(auth, browserLocalPersistence).then(() => {
-        handleSignUser(data.email, data.password, setSuccess, navigate)
-      })
-    } else if (data.loginPersist === false) {
-      setPersistence(auth, browserSessionPersistence).then(() => {
-        handleSignUser(data.email, data.password, setSuccess, navigate)
-      })
-    }
+    // if (data.loginPersist === true) {
+    //   setPersistence(auth, browserLocalPersistence).then(() => {
+    //     handleSignUser(data.email, data.password, setSuccess, navigate)
+    //   })
+    // } else if (data.loginPersist === false) {
+    //   setPersistence(auth, browserSessionPersistence).then(() => {
+    //     handleSignUser(data.email, data.password, setSuccess, navigate)
+    //   })
+    // }
+
+    setPersistence(auth, browserLocalPersistence).then(() => {
+      handleSignUser(data.email, data.password, setSuccess, navigate)
+    })
   }
 
   return (
@@ -65,10 +69,10 @@ const Login = () => {
           <h1>Zaloguj się</h1>
           <input type='email' placeholder='e-mail' {...register('email')} required />
           <input type='password' placeholder='password' {...register('password')} required />
-          <span className='persist-wrapper'>
+          {/* <span className='persist-wrapper'>
             <input type='checkbox' name='persist' {...register('loginPersist')} />
             <label htmlFor='persist'>Nie wylogowuj mnie</label>
-          </span>
+          </span> */}
           <button type='submit' ref={loginButtonRef}>
             ZALOGUJ
           </button>

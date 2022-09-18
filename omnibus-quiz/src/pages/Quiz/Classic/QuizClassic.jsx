@@ -14,8 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 const QuizClassic = () => {
-  const { chosenCategory, questions, setGameInfo, gameInfo, setLastGameInfo } =
-    useContext(GameContext)
+  const { chosenCategory, questions, setGameInfo, gameInfo } = useContext(GameContext)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [qid, setQid] = useState(0)
 
@@ -26,34 +25,35 @@ const QuizClassic = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const sessionQuestion = sessionStorage.getItem('currentQuestion')
+    const sessionQuestion = localStorage.getItem('currentQuestion')
 
     if (sessionQuestion === 'undefined' || sessionQuestion === null) {
       setCurrentQuestion(questions[qid])
-      sessionStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
+      localStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
     } else {
       setCurrentQuestion(JSON.parse(sessionQuestion))
     }
   }, [])
 
   useEffect(() => {
-    if (qid == questions.length) {
+    if (questions.length !== 0 && qid == questions.length) {
       setGameInfo((prev) => {
         const correct = answers.filter((val) => val === true).length
         const newInfo = { correctAnswers: correct }
         return { ...prev, ...newInfo }
       })
 
+      localStorage.clear()
       navigate('/')
-    } else {
+    } else if (questions.length !== 0) {
       setGameInfo((prev) => {
-        const newScore = gameInfo.score + 500 * qid
+        const newScore = answers[answers.length - 1] ? gameInfo.score + 500 * qid : gameInfo.score
         const newInfo = { score: newScore }
         return { ...prev, ...newInfo }
       })
 
       setCurrentQuestion(questions[qid])
-      sessionStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
+      localStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
       setAnswerDisabled(false)
     }
   }, [qid])

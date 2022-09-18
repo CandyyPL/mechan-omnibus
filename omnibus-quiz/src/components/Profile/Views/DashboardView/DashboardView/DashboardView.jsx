@@ -33,7 +33,7 @@ const DashboardView = () => {
   } = useModal()
 
   useEffect(() => {
-    sessionStorage.clear()
+    localStorage.clear()
   }, [])
 
   return (

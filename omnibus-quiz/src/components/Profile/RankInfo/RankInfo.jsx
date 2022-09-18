@@ -12,18 +12,20 @@ const RankInfo = () => {
   } = useContext(AuthContext)
 
   useEffect(() => {
-    const ranksArr = Object.entries(ranks)
-    const name = ranksArr[rank][1].name
-    const img = ranksArr[rank][1].img
+    if (rank !== null) {
+      const ranksArr = Object.entries(ranks)
+      const name = ranksArr[rank][1].name
+      const img = ranksArr[rank][1].img
 
-    setCurrentRank(name)
-    setCurrentRankImg(img)
+      setCurrentRank(name)
+      setCurrentRankImg(img)
+    }
   }, [])
 
   return (
     <Wrapper>
       <img src={currentRankImg} alt='rank' />
-      {rank === 0 ? (
+      {rank != null && rank === 0 ? (
         <span>Poza rankingiem</span>
       ) : (
         <span>

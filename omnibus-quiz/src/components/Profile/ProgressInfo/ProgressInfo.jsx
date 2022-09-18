@@ -11,17 +11,24 @@ import 'moment/locale/pl'
 import { useContext } from 'react'
 import { GameContext } from '@/providers/GameProvider'
 import { AuthContext } from '@/providers/AuthProvider'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const ProgressInfo = () => {
   const { lastGameInfo } = useContext(GameContext)
   const {
     mongoUser,
     mongoUser: { exp, neededExp, totalScore, favSubject },
+    getMongoUser,
   } = useContext(AuthContext)
+
+  const [lastPlay, setLastPlay] = useState('')
 
   moment.locale('pl')
 
-  const getLastPlay = (time) => moment(Number(time)).fromNow().toUpperCase()
+  useEffect(() => {
+    getMongoUser()
+  }, [])
 
   return (
     <Wrapper>
@@ -47,7 +54,8 @@ const ProgressInfo = () => {
           <div className='last-game'>
             <span className='text'>OSTATNIA GRA</span>
             <span className='subtext'>
-              {lastGameInfo && lastGameInfo.date !== 'N/A' ? getLastPlay(lastGameInfo.date) : 'N/A'}
+              {/* {lastGameInfo && lastGameInfo.date !== 'N/A' ? lastPlay : 'N/A'} */}
+              -------
             </span>
           </div>
         </Stats>

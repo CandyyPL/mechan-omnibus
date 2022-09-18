@@ -11,6 +11,10 @@ const AuthProvider = ({ children }) => {
   const [mongoUser, setMongoUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  const getMongoUser = (user = currentUser) => {
+    getData(user.uid).then((res) => setMongoUser(res.data.user))
+  }
+
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -18,7 +22,7 @@ const AuthProvider = ({ children }) => {
 
         updateData(user.email, null, { uid: user.uid }).then(() => {})
 
-        getData(user.uid).then((res) => setMongoUser(res.data.user))
+        getMongoUser(user)
 
         setLoading(false)
       } else {
@@ -29,7 +33,7 @@ const AuthProvider = ({ children }) => {
     })
   }, [])
 
-  const provide = { currentUser, mongoUser }
+  const provide = { currentUser, mongoUser, getMongoUser }
 
   return (
     <AuthContext.Provider value={provide}>{loading ? <Loading /> : children}</AuthContext.Provider>

@@ -5,7 +5,7 @@ export const handleSignUser = (email, password, setSuccess, navigate) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       setSuccess('Pomyślnie zarejestrowano!')
-      navigate('/')
+      navigate('/profile')
     })
     .catch((err) => {
       if (err.code.includes('email-already-in-use')) {
@@ -13,7 +13,7 @@ export const handleSignUser = (email, password, setSuccess, navigate) => {
           .then(() => {
             setSuccess('Pomyślnie zalogowano! Za chwilę nastąpi przekierowanie.')
             setTimeout(() => {
-              navigate('/')
+              navigate('/profile')
             }, 250)
           })
           .catch((err) => console.log(err))

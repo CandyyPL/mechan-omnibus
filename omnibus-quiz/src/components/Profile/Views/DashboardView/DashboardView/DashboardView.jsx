@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   GameButtons,
   GameModes,
@@ -14,11 +14,15 @@ import Achievements from '@/components/Profile/Achievements/Achievements'
 import GameModal from '@/components/Profile/Views/DashboardView/GameModal/GameModal'
 import HistoryModal from '@/components/Profile/Views/DashboardView/HistoryModal/HistoryModal'
 import { useEffect } from 'react'
+import { getData } from '@/db/dbMethods'
+import { AuthContext } from '@/providers/AuthProvider'
+import { GameContext, gameInitialState } from '@/providers/GameProvider'
 
 const DashboardView = () => {
   document.title = 'Dashboard'
 
-  // const { currentUser, mongoUser, getmongoUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
+  const { setLastGameInfo, setGameInfo } = useContext(GameContext)
 
   const {
     isModalOpen: isHistoryModalOpen,
@@ -33,7 +37,14 @@ const DashboardView = () => {
   } = useModal()
 
   useEffect(() => {
-    localStorage.clear()
+    if (currentUser) {
+      getData(currentUser.uid).then((res) => {
+        const lastGame = res.data.user.lastGame
+        setLastGameInfo(lastGame)
+      })
+    }
+
+    setGameInfo(gameInitialState)
   }, [])
 
   return (

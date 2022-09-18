@@ -3,13 +3,17 @@ import { RankingList, Wrapper } from '@/components/Profile/Views/Leaderboard/Lea
 import RankingItem from '@/components/Profile/RankingItem/RankingItem'
 import { useEffect } from 'react'
 import { getData } from '@/db/dbMethods'
+import { useContext } from 'react'
+import { AuthContext } from '@/providers/AuthProvider'
 
 const LeaderboardView = () => {
+  const { currentUser } = useContext(AuthContext)
+
   const [ranking, setRanking] = useState([])
 
   useEffect(() => {
     getData().then((res) => {
-      const ranking = res.data.users.filter((user) => user.ranking !== 0)
+      const ranking = res.data.users.filter((user) => user.ranking <= 20)
       setRanking(ranking)
     })
   }, [])

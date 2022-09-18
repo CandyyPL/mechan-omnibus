@@ -11,7 +11,7 @@ const QuizPage = () => {
   const { chosenGamemode, gameInfo } = useContext(GameContext)
 
   if (gameInfo.gid !== null && gameInfo.gid !== undefined && gameInfo.gid === '')
-    return <Navigate to='/' />
+    return <Navigate to='/profile' />
 
   switch (chosenGamemode) {
     case gameModes.CLASSIC:

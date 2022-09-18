@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 
 export const GameContext = createContext({})
 
-const gameInitialState = {
+export const gameInitialState = {
   gid: '',
   gDate: 0,
   category: '',
@@ -31,6 +31,7 @@ const GameProvider = ({ children }) => {
   const [chosenGamemode, setChosenGamemode] = useState(localStorage.getItem('gamemode') || '')
   const [chosenCategory, setChosenCategory] = useState(localStorage.getItem('category') || '')
   const [questions, setQuestions] = useState([])
+  const [answers, setAnswers] = useState([])
   const [questionGroups, setQuestionGroups] = useState([])
 
   const [gameError, setGameError] = useState(null)
@@ -84,13 +85,6 @@ const GameProvider = ({ children }) => {
   }, [questions])
 
   useEffect(() => {
-    if (currentUser) {
-      getData(currentUser.uid).then((res) => {
-        const lastGame = res.data.user.lastGame
-        setLastGameInfo(lastGame)
-      })
-    }
-
     const sessionGameInfo = localStorage.getItem('gameInfo')
 
     if (sessionGameInfo !== 'undefined' && sessionGameInfo !== null) {
@@ -99,12 +93,6 @@ const GameProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    setLastGameInfo({
-      subject: gameInfo.category,
-      answers: gameInfo.correctAnswers,
-      score: gameInfo.score,
-    })
-
     localStorage.setItem('gameInfo', JSON.stringify(gameInfo))
   }, [gameInfo])
 
@@ -129,6 +117,8 @@ const GameProvider = ({ children }) => {
     setGameError,
     lastGameInfo,
     setLastGameInfo,
+    answers,
+    setAnswers,
   }
 
   return (

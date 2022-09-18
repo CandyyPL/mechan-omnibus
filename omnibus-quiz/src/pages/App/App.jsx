@@ -6,16 +6,17 @@ import Login from '@/pages/Login/Login'
 import PrivateRoute from '@/helpers/PrivateRoute'
 import Profile from '@/pages/Profile/Profile'
 import QuizPage from '@/pages/Quiz/QuizPage'
+import QuizSummary from '@/pages/Quiz/Summary/QuizSummary'
 
 const App = () => {
   return (
     <Wrapper>
       <Router>
         <Routes>
-          <Route path='/home' element={<Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route
-            path='/'
+            path='/profile'
             element={
               <PrivateRoute>
                 <Profile />
@@ -27,6 +28,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <QuizPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/play/summary'
+            element={
+              <PrivateRoute>
+                <QuizSummary />
               </PrivateRoute>
             }
           />

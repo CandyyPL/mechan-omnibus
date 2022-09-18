@@ -12,34 +12,6 @@ export const Wrapper = styled.div`
   align-items: center;
 `
 
-export const QuizTopbar = styled.div`
-  width: 100%;
-  height: 100px;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  span {
-    font-size: 28px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: bold;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img:first-of-type {
-      transform: scaleX(-1);
-    }
-
-    img {
-      height: 50px;
-      margin-inline: 10px;
-    }
-  }
-`
-
 export const QuestionWrapper = styled.div`
   width: 80%;
   height: 70%;

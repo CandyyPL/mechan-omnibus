@@ -4,21 +4,15 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
-import busImg from '@/assets/bus-small.png'
-import {
-  QuestionsAnswers,
-  QuestionWrapper,
-  QuizTopbar,
-  Wrapper,
-} from '@/pages/Quiz/Classic/QuizClassic.styles'
+import { QuestionsAnswers, QuestionWrapper, Wrapper } from '@/pages/Quiz/Classic/QuizClassic.styles'
 import { useNavigate } from 'react-router-dom'
+import QuizTopbar from '@/pages/Quiz/Topbar/QuizTopbar'
 
 const QuizClassic = () => {
-  const { chosenCategory, questions, setGameInfo, gameInfo } = useContext(GameContext)
+  const { chosenGamemode, chosenCategory, questions, setGameInfo, gameInfo, answers, setAnswers } =
+    useContext(GameContext)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [qid, setQid] = useState(0)
-
-  const [answers, setAnswers] = useState([])
 
   const [answerDisabled, setAnswerDisabled] = useState(false)
 
@@ -36,34 +30,35 @@ const QuizClassic = () => {
   }, [])
 
   useEffect(() => {
-    if (questions.length !== 0 && qid == questions.length) {
+    if (questions.length !== 0 && answers.length !== 0) {
       setGameInfo((prev) => {
-        const correct = answers.filter((val) => val === true).length
-        const newInfo = { correctAnswers: correct }
-        return { ...prev, ...newInfo }
-      })
-
-      localStorage.clear()
-      navigate('/')
-    } else if (questions.length !== 0) {
-      setGameInfo((prev) => {
-        const newScore = answers[answers.length - 1] ? gameInfo.score + 500 * qid : gameInfo.score
+        const newScore = answers[answers.length - 1][1] ? gameInfo.score + 500 : gameInfo.score
         const newInfo = { score: newScore }
         return { ...prev, ...newInfo }
       })
 
-      setCurrentQuestion(questions[qid])
-      localStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
-      setAnswerDisabled(false)
+      if (qid == questions.length) {
+        setGameInfo((prev) => {
+          const correct = answers.filter((innerArr) => innerArr[1] === true).length
+          const newInfo = { correctAnswers: correct }
+          return { ...prev, ...newInfo }
+        })
+
+        navigate('/play/summary')
+      } else if (qid < questions.length) {
+        setCurrentQuestion(questions[qid])
+        localStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
+        setAnswerDisabled(false)
+      }
     }
   }, [qid])
 
   const handleMakeAnswer = (id) => {
     if (id === currentQuestion.correctanswerid) {
-      setAnswers([...answers, true])
+      setAnswers([...answers, [id, true]])
       setQid((prev) => prev + 1)
     } else {
-      setAnswers([...answers, false])
+      setAnswers([...answers, [id, false]])
       setQid((prev) => prev + 1)
     }
 
@@ -74,15 +69,7 @@ const QuizClassic = () => {
     <>
       {currentQuestion !== null ? (
         <Wrapper>
-          <QuizTopbar>
-            <span>Klasyczny</span>
-            <span>
-              <img src={busImg} alt='bus' />
-              OMNIBUS
-              <img src={busImg} alt='bus' />
-            </span>
-            <span>{chosenCategory}</span>
-          </QuizTopbar>
+          <QuizTopbar mode={chosenGamemode} category={chosenCategory} />
           <QuestionWrapper>
             <span className='title'>
               {currentQuestion.questiontitle !== null && currentQuestion.questiontitle}

@@ -26,13 +26,13 @@ const Topbar = () => {
           <>
             {window.location.pathname === '/profile' ? (
               <>
-                <Link to='/home'>
+                <Link to='/'>
                   <button>STRONA GŁÓWNA</button>
                 </Link>
                 <button onClick={handleSignOut}>WYLOGUJ</button>
               </>
             ) : (
-              <Link to='/'>
+              <Link to='/profile'>
                 <button>PROFIL</button>
               </Link>
             )}
@@ -40,7 +40,7 @@ const Topbar = () => {
         ) : (
           <>
             {window.location.pathname === '/login' ? (
-              <Link to='/home'>
+              <Link to='/'>
                 <button>STRONA GŁÓWNA</button>
               </Link>
             ) : (

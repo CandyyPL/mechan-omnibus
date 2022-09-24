@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 
   background-color: #eee;
 
@@ -66,7 +67,7 @@ export const BackButton = styled.button`
 
 export const DetailedAnswers = styled.ul`
   width: 80%;
-  height: 50%;
+  height: 100%;
 
   /* border: 4px solid #aaa;
   border-radius: 20px; */
@@ -85,12 +86,16 @@ export const DetailedAnswers = styled.ul`
 
 export const QuestionInfo = styled.li`
   width: 100%;
-  height: 20%;
+  height: 100px;
 
   background-color: #ddd;
 
   padding-inline: 15px;
   border-radius: 10px;
+
+  :not(:last-child) {
+    margin-bottom: 20px;
+  }
 
   display: flex;
   justify-content: space-between;

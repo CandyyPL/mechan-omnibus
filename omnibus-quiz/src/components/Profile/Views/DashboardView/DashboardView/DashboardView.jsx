@@ -45,6 +45,8 @@ const DashboardView = () => {
     }
 
     setGameInfo(gameInitialState)
+
+    localStorage.clear()
   }, [])
 
   return (

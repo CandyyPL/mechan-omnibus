@@ -68,14 +68,16 @@ const QuizSummary = () => {
   }, [cwAnswers])
 
   const getAnswerText = (answerCount, answer) => {
-    if (answerCount === 1) {
-      if (answer === true) return `${answerCount} poprawna odpowiedź`
-      else return `${answerCount} błędna odpowiedź`
+    if (answer === true) {
+      if (answerCount === 1) return `${answerCount} poprawna odpowiedź`
+      else if ([2, 3, 4].includes(answerCount)) return `${answerCount} poprawne odpowiedź`
+      else return `${answerCount} poprawnych odpowiedź`
     }
 
-    if (answerCount > 1 || answerCount === 0) {
-      if (answer === true) return `${answerCount} poprawnych odpowiedzi`
-      else return `${answerCount} błędnych odpowiedzi`
+    if (answer === false) {
+      if (answerCount === 1) return `${answerCount} błędna odpowiedź`
+      else if ([2, 3, 4].includes(answerCount)) return `${answerCount} błędne odpowiedź`
+      else return `${answerCount} błędnych odpowiedź`
     }
   }
 
@@ -111,7 +113,7 @@ const QuizSummary = () => {
                     Twoja odpowiedź: {q.questionanswers[answers[idx][0]].answer}
                   </span>
                   <span className='correct'>
-                    Poprawna odpowiedź: {q.questionanswers[q.correctanswerid].answer}
+                    Poprawna odpowiedź: {q.questionanswers[q.correctid].answer}
                   </span>
                 </span>
               )}

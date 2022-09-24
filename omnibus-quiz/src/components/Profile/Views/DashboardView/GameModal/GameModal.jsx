@@ -22,7 +22,7 @@ const GameModal = ({ closeModal }) => {
 
     localStorage.setItem('gamemode', chosenGamemode)
     localStorage.setItem('category', chosenCategory)
-    getQuestions().then((res) => setQuestions(res.data.allQuestiongroups[0].questions))
+    getQuestions().then((res) => setQuestions(res.data.allQuestions))
     initGame()
     navigate('/play')
   }

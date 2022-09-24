@@ -31,28 +31,42 @@ const GameProvider = ({ children }) => {
   const [chosenGamemode, setChosenGamemode] = useState(localStorage.getItem('gamemode') || '')
   const [chosenCategory, setChosenCategory] = useState(localStorage.getItem('category') || '')
   const [questions, setQuestions] = useState([])
+  const [questionsIdx, setQuestionsIdx] = useState([])
   const [answers, setAnswers] = useState([])
   const [questionGroups, setQuestionGroups] = useState([])
 
   const [gameError, setGameError] = useState(null)
 
   const constructQuery = (category = null) => {
-    const filter = category === null ? '' : `(filter: { group: { eq: "${category}" } })`
+    const filter = category === null ? '' : `(filter: { questiongroup: { eq: "${category}" } })`
+
+    const temp = `OR: [
+      { questionid: { eq: ${questionsIdx[0]} } },
+      { questionid: { eq: ${questionsIdx[1]} } },
+      { questionid: { eq: ${questionsIdx[2]} } },
+      { questionid: { eq: ${questionsIdx[3]} } },
+      { questionid: { eq: ${questionsIdx[4]} } },
+      { questionid: { eq: ${questionsIdx[5]} } },
+      { questionid: { eq: ${questionsIdx[6]} } },
+      { questionid: { eq: ${questionsIdx[7]} } },
+      { questionid: { eq: ${questionsIdx[8]} } },
+      { questionid: { eq: ${questionsIdx[9]} } }
+    ]`
 
     return `
       query Questions {
-        allQuestiongroups${filter} {
-          group
-          questions {
-            id
-            questiontitle
-            questionanswers {
-              id
-              answer
-              answerid
-            }
-            correctanswerid
+        allQuestions${filter} {
+          questionid
+          questiongroup
+          questiontitle
+          questionimage {
+            url
           }
+          questionanswers {
+            answer
+            answerid
+          }
+          correctid
         }
       }`
   }

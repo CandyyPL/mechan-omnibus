@@ -9,8 +9,16 @@ import { useNavigate } from 'react-router-dom'
 import QuizTopbar from '@/pages/Quiz/Topbar/QuizTopbar'
 
 const QuizClassic = () => {
-  const { chosenGamemode, chosenCategory, questions, setGameInfo, gameInfo, answers, setAnswers } =
-    useContext(GameContext)
+  const {
+    chosenGamemode,
+    chosenCategory,
+    questions,
+    setQuestions,
+    setGameInfo,
+    gameInfo,
+    answers,
+    setAnswers,
+  } = useContext(GameContext)
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [qid, setQid] = useState(0)
 
@@ -20,7 +28,6 @@ const QuizClassic = () => {
 
   useEffect(() => {
     const sessionQuestion = localStorage.getItem('currentQuestion')
-    const storageAnswers = localStorage.getItem('answers')
     const storageQuestions = localStorage.getItem('questions')
 
     if (sessionQuestion === 'undefined' || sessionQuestion === null) {
@@ -30,15 +37,10 @@ const QuizClassic = () => {
       setCurrentQuestion(JSON.parse(sessionQuestion))
     }
 
-    if (storageAnswers === 'undefined' || storageAnswers === null) {
-      localStorage.setItem('answers', JSON.stringify(answers))
-    }
-
     if (storageQuestions === 'undefined' || storageQuestions === null) {
       localStorage.setItem('questions', JSON.stringify(questions))
     }
 
-    if (answers.length === 0) setAnswers(JSON.parse(storageAnswers))
     if (questions.length === 0) setQuestions(JSON.parse(storageQuestions))
   }, [])
 
@@ -67,7 +69,7 @@ const QuizClassic = () => {
   }, [qid])
 
   const handleMakeAnswer = (id) => {
-    if (id === currentQuestion.correctanswerid) {
+    if (id === currentQuestion.correctid) {
       setAnswers([...answers, [id, true]])
       setQid((prev) => prev + 1)
     } else {

@@ -20,6 +20,8 @@ const QuizClassic = () => {
 
   useEffect(() => {
     const sessionQuestion = localStorage.getItem('currentQuestion')
+    const storageAnswers = localStorage.getItem('answers')
+    const storageQuestions = localStorage.getItem('questions')
 
     if (sessionQuestion === 'undefined' || sessionQuestion === null) {
       setCurrentQuestion(questions[qid])
@@ -27,6 +29,17 @@ const QuizClassic = () => {
     } else {
       setCurrentQuestion(JSON.parse(sessionQuestion))
     }
+
+    if (storageAnswers === 'undefined' || storageAnswers === null) {
+      localStorage.setItem('answers', JSON.stringify(answers))
+    }
+
+    if (storageQuestions === 'undefined' || storageQuestions === null) {
+      localStorage.setItem('questions', JSON.stringify(questions))
+    }
+
+    if (answers.length === 0) setAnswers(JSON.parse(storageAnswers))
+    if (questions.length === 0) setQuestions(JSON.parse(storageQuestions))
   }, [])
 
   useEffect(() => {

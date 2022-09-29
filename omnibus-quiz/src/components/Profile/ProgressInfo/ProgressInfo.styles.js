@@ -56,7 +56,7 @@ export const Stats = styled.div`
   height: 100px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly; //! CHANGE AFTER ADDING FAV SUBJECT
   align-items: center;
 
   div {

@@ -54,7 +54,7 @@ const DashboardView = () => {
       {isHistoryModalOpen && <HistoryModal closeModal={handleCloseHistoryModal} />}
       {isGameModalOpen && <GameModal closeModal={handleCloseGameModal} />}
       <UserStats>
-        <RankInfo />
+        {/* <RankInfo /> */}
         <ProgressInfo />
       </UserStats>
       <GamesInfo>

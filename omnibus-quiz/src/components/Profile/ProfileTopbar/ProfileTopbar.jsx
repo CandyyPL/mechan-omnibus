@@ -19,14 +19,14 @@ const ProfileTopbar = () => {
         )}
       </div>
       <div className='right'>
-        <TopbarStats className='item'>
+        {/* <TopbarStats className='item'>
           <img src={streakColorImg} alt='streak' />
           <span>14</span>
         </TopbarStats>
         <TopbarStats className='item'>
           <img src={tireImg} alt='tires' />
           <span>6</span>
-        </TopbarStats>
+        </TopbarStats> */}
       </div>
     </Wrapper>
   )

@@ -45,12 +45,12 @@ const ProgressInfo = () => {
             <span className='text'>CAŁKOWITY WYNIK</span>
             <span className='subtext'>{mongoUser && totalScore !== 0 ? totalScore : 'N/A'}</span>
           </div>
-          <div className='fav-subject'>
+          {/* <div className='fav-subject'>
             <span className='text'>ULUBIONY PRZEDMIOT</span>
             <span className='subtext'>
               {mongoUser && favSubject ? favSubject.toUpperCase() : 'N/A'}
             </span>
-          </div>
+          </div> */}
           <div className='last-game'>
             <span className='text'>OSTATNIA GRA</span>
             <span className='subtext'>

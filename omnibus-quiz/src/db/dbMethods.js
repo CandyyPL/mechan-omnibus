@@ -29,3 +29,12 @@ export const updateData = async (email = null, uid = null, update) => {
     console.log(err)
   }
 }
+
+export const getRanking = async () => {
+  try {
+    const ranking = await axios.get('http://localhost:5000/getranking')
+    return ranking
+  } catch (err) {
+    console.log(err)
+  }
+}

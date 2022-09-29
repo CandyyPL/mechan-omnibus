@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { RankingList, Wrapper } from '@/components/Profile/Views/Leaderboard/LeaderboardView.styles'
 import RankingItem from '@/components/Profile/RankingItem/RankingItem'
 import { useEffect } from 'react'
-import { getData } from '@/db/dbMethods'
+import { getRanking } from '@/db/dbMethods'
 import { useContext } from 'react'
 import { AuthContext } from '@/providers/AuthProvider'
 
@@ -12,7 +12,7 @@ const LeaderboardView = () => {
   const [ranking, setRanking] = useState([])
 
   useEffect(() => {
-    getData().then((res) => {
+    getRanking().then((res) => {
       const ranking = res.data.users.filter((user) => user.ranking <= 20)
       setRanking(ranking)
     })

@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { RankingList, Wrapper } from '@/components/Profile/Views/Leaderboard/LeaderboardView.styles'
+import {
+  Empty,
+  RankingList,
+  Wrapper,
+} from '@/components/Profile/Views/Leaderboard/LeaderboardView.styles'
 import RankingItem from '@/components/Profile/RankingItem/RankingItem'
 import { useEffect } from 'react'
 import { getRanking } from '@/db/dbMethods'
@@ -13,19 +17,29 @@ const LeaderboardView = () => {
 
   useEffect(() => {
     getRanking().then((res) => {
-      const ranking = res.data.users.filter((user) => user.ranking <= 20)
+      console.log(res)
+      const ranking = res.data.sortedRanking.filter((user) => user.ranking <= 20)
       setRanking(ranking)
     })
   }, [])
 
   return (
     <Wrapper>
-      <h1>Ranking 20 najlepszych graczy</h1>
-      <RankingList>
-        {ranking &&
-          ranking.length > 0 &&
-          ranking.map((item) => <RankingItem key={item.id} item={item} />)}
-      </RankingList>
+      {ranking && ranking.length === 0 ? (
+        <Empty>
+          <h1>Brak danych</h1>
+          <h3>Możesz być pierwszy!</h3>
+        </Empty>
+      ) : (
+        <>
+          <h1>Ranking 20 najlepszych graczy</h1>
+          <RankingList>
+            {ranking &&
+              ranking.length > 0 &&
+              ranking.map((item) => <RankingItem key={item.id} item={item} />)}
+          </RankingList>
+        </>
+      )}
     </Wrapper>
   )
 }

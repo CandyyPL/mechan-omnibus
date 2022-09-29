@@ -9,6 +9,7 @@ import chkState from './routes/chkState.js'
 import updateOne from './routes/updateOne.js'
 import getOne from './routes/getOne.js'
 import saveGame from './routes/saveGame.js'
+import getRanking from './routes/getRanking.js'
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.post('/getone', getOne)
 app.post('/savegame', saveGame)
 
 app.get('/getall', getAll)
+app.get('/getranking', getRanking)
 
 // app.use('/panel', express.static('./public/panel'))
 

@@ -11,5 +11,17 @@ export default async (req, res) => {
   user.markModified('lastGame')
   await user.save()
 
+  const rankingUsers = await User.find({ totalScore: { $gt: 0 } })
+  console.log(rankingUsers)
+
+  if (rankingUsers.length > 0) {
+    rankingUsers.sort((a, b) => b.totalScore - a.totalScore)
+
+    rankingUsers.forEach(async (user, idx) => {
+      user.ranking = idx + 1
+      await user.save()
+    })
+  }
+
   res.status(200).send({ express: 'Game saved!' })
 }

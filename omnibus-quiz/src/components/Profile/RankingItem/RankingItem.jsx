@@ -49,7 +49,7 @@ const RankingItem = ({ item }) => {
         <span className='name'>{item.name}</span>
       </UserData>
       <div className='right'>
-        <UserStat bgColor='#52d1dc'>{item.favSubject}</UserStat>
+        {/* <UserStat bgColor='#52d1dc'>{item.favSubject}</UserStat> */}
         <UserStat bgColor='#f3a712'>{item.totalScore}</UserStat>
       </div>
     </Wrapper>

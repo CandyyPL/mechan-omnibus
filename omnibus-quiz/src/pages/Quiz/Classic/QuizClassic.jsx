@@ -22,6 +22,8 @@ const QuizClassic = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [qid, setQid] = useState(0)
 
+  const [currentAnswerTime, setCurrentAnswerTime] = useState(0)
+
   const [answerDisabled, setAnswerDisabled] = useState(false)
 
   const navigate = useNavigate()
@@ -32,6 +34,7 @@ const QuizClassic = () => {
 
     if (sessionQuestion === 'undefined' || sessionQuestion === null) {
       setCurrentQuestion(questions[qid])
+      setCurrentAnswerTime(Date.now())
       localStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
     } else {
       setCurrentQuestion(JSON.parse(sessionQuestion))
@@ -46,11 +49,11 @@ const QuizClassic = () => {
 
   useEffect(() => {
     if (questions.length !== 0 && answers.length !== 0) {
-      setGameInfo((prev) => {
-        const newScore = answers[answers.length - 1][1] ? gameInfo.score + 500 : gameInfo.score
-        const newInfo = { score: newScore }
-        return { ...prev, ...newInfo }
-      })
+      // setGameInfo((prev) => {
+      //   const newScore = answers[answers.length - 1][1] ? gameInfo.score + 500 : gameInfo.score
+      //   const newInfo = { score: newScore }
+      //   return { ...prev, ...newInfo }
+      // })
 
       if (qid == questions.length) {
         setGameInfo((prev) => {
@@ -62,15 +65,27 @@ const QuizClassic = () => {
         navigate('/play/summary')
       } else if (qid < questions.length) {
         setCurrentQuestion(questions[qid])
+        setCurrentAnswerTime(Date.now())
         localStorage.setItem('currentQuestion', JSON.stringify(questions[qid]))
         setAnswerDisabled(false)
       }
     }
   }, [qid])
 
+  const getAnswerScore = (answerTime) => {
+    answerTime = answerTime / 1000
+    const baseScore = 1000
+    return 500
+  }
+
   const handleMakeAnswer = (id) => {
     if (id === currentQuestion.correctid) {
       setAnswers([...answers, [id, true]])
+      const calcScore = getAnswerScore(Date.now() - currentAnswerTime)
+      const newScore = gameInfo.score + calcScore
+      setGameInfo((prev) => {
+        return { ...prev, ...{ score: newScore } }
+      })
       setQid((prev) => prev + 1)
     } else {
       setAnswers([...answers, [id, false]])

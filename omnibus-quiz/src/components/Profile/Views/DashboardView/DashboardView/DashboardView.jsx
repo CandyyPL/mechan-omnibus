@@ -63,9 +63,9 @@ const DashboardView = () => {
             <button className='play' onClick={handleOpenGameModal}>
               GRAJ
             </button>
-            <button className='history' onClick={handleOpenHistoryModal}>
+            {/* <button className='history' onClick={handleOpenHistoryModal}>
               HISTORIA GIER
-            </button>
+            </button> */}
           </GameButtons>
           <LastGameInfo />
         </GameModes>
